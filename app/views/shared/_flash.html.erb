@@ -1,0 +1,7 @@
+ <% if flash.any? %> 
+     <% flash.each do |type, message| %> 
+        <% flash_type = type.to_s == "notice" ? "success" : "fail" %> 
+            <div class="fixed bottom-8 right-8 z-50 max-w-xs min-w-[200px] p-4 text-white font-semibold shadow-lg rounded-md transition-opacity auto-close-flash <%= flash_type == 'success' ? 'bg-success' : 'bg-warning' %>" data-flash-type="<%= flash_type %>" > 
+            <%= message %> </div> 
+        <% end %> 
+<% end %>

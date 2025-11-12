@@ -1,0 +1,25 @@
+    
+<div class="md:pt-0 pt-2">
+        <button type="button" data-dropdown-toggle="language-dropdown" class="inline-flex justify-center p-2 text-white rounded-xl cursor-pointer hover:bg-minor border border-minor border-2">
+          <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m13 19 3.5-9 3.5 9m-6.125-2h5.25M3 7h7m0 0h2m-2 0c0 1.63-.793 3.926-2.239 5.655M7.5 6.818V5m.261 7.655C6.79 13.82 5.521 14.725 4 15m3.761-2.345L5 10m2.761 2.655L10.2 15"/>
+          </svg>
+        </button>
+        
+        <!-- Dropdown -->
+        <div class="hidden z-50 text-base list-none bg-white rounded divide-y divide-gray-100 shadow " id="language-dropdown">
+          <ul class="py-1" role="none">
+            <li>
+            <%= link_to url_for(locale: "en"), class: "block py-2 px-4 hover:bg-gray-200" do %>
+              <div class="inline-flex items-center">English (US)</div>
+            <% end %>
+            </li>
+            <li>
+              <%= link_to url_for(locale: "es"), class: "block py-2 px-4 hover:bg-gray-200" do %>
+                <div class="inline-flex items-center">Español (ES)</div>
+              <% end %>
+            </li>
+          </ul>
+        </div>
+
+</div>

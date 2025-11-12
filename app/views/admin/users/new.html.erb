@@ -1,0 +1,14 @@
+
+<div class="antialiased bg-gray-50 h-full">
+  <%= render "shared/dashboard_header" %> 
+  <main class="p-4 md:ml-64 pt-20">
+    <section class=" flex md:flex-row flex-col mx-auto content-center items-center justify-center px-8 pb-4 md:space-y-0 space-y-8">
+      <h1 class="md:text-2xl text-xl uppercase text-minor  font-bold"><%= t('nav.add_user') %></h1>
+    </section>
+      <%= render "form", user: @user %>
+  </main>
+</div>
+
+
+
+

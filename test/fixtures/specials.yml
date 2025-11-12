@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  special_name: MyString
+  day_of_week: MyString
+  open_time: 2025-06-05 08:36:53
+  closed_time: 2025-06-05 08:36:53
+  description: MyText
+
+two:
+  title: MyString
+  special_name: MyString
+  day_of_week: MyString
+  open_time: 2025-06-05 08:36:53
+  closed_time: 2025-06-05 08:36:53
+  description: MyText

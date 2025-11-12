@@ -1,0 +1,309 @@
+    <nav class="bg-main border-b border-gray-200 px-4 py-2.5 fixed left-0 right-0 top-0 z-50">
+      <div class="flex flex-wrap justify-between items-center md:px-8">
+
+        <!-- Nav Title -->
+        <div class="flex md:justify-start justify-between items-center md:w-auto">    
+          <%= link_to dashboard_index_path(locale: I18n.locale), class: "flex items-center justify-between mr-4" do %>
+            <%= inline_svg_tag"hourglass_logo.svg", class: 'h-12 w-12 text-white alt="Hotel Logo" md:block hidden' %> 
+          <% end %>
+
+          <button data-drawer-target="drawer-navigation" data-drawer-toggle="drawer-navigation" aria-controls="drawer-navigation" class="p-2 text-white rounded-lg cursor-pointer md:hidden hover:text-gray-900 hover:bg-gray-100 focus:bg-gray-100 focus:ring-2 focus:ring-gray-100">
+            <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+            </svg>
+            <svg aria-hidden="true" class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="sr-only">Toggle sidebar</span>
+          </button>  
+        </div>
+
+        <div class="flex items-center justify-end lg:order-2 w-auto">
+          <!-- Admin access -->
+          <% if user_signed_in? && current_user.admin? %>
+          <button type="button"  data-dropdown-toggle="apps-dropdown" class="p-2 cursor-pointer  text-minor rounded-lg hover:text-minor hover:bg-minor  focus:ring-4">
+            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+            </svg>   
+          </button>
+
+          <!-- Dropdown admin menu -->
+          
+          <div class="hidden overflow-hidden z-50 my-4 max-w-sm text-base list-none bg-white rounded divide-y divide-gray-100 shadow-lg rounded-xl" id="apps-dropdown">
+            <div class="block py-2 px-4 text-base font-medium text-center text-gray-700 bg-gray-50">
+             <%= t('nav.tools') %>
+            </div>
+
+            <div class="grid grid-cols-3 gap-4 p-4">
+
+               <% if user_signed_in? && current_user.admin? %>
+                <%= link_to admin_users_path(locale: I18n.locale), class: "block p-4 text-center rounded-lg hover:bg-gray-100 group" do %>
+                  <svg aria-hidden="true" class="mx-auto mb-1 w-7 h-7 text-gray-400 group-hover:text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"
+                    ></path>
+                  </svg>
+                  <div class="text-sm text-text text-center"><%= t('nav.users') %></div>
+                <% end %>        
+              <% end %>
+              
+              <%= link_to settings_path, class: "block p-4 text-center rounded-lg hover:bg-gray-100 group   w-full max-w-xs mx-auto" do %>
+                <svg aria-hidden="true" class="mx-auto mb-1 w-7 h-7 text-gray-400 group-hover:text-gray-500 " fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path>
+                </svg>
+                <div class="text-sm text-gray-900 truncate break-words text-center w-full"><%= t('nav.settings') %></div>
+              <% end %>
+            
+              <%= link_to settings_path, class: "block p-4 text-center rounded-lg hover:bg-gray-100 group" do %>
+                <svg class="mx-auto mb-1 w-7 h-7 text-gray-400 group-hover:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 4h12M6 4v16M6 4H5m13 0v16m0-16h1m-1 16H6m12 0h1M6 20H5M9 7h1v1H9V7Zm5 0h1v1h-1V7Zm-5 4h1v1H9v-1Zm5 0h1v1h-1v-1Zm-3 4h2a1 1 0 0 1 1 1v4h-4v-4a1 1 0 0 1 1-1Z"/>
+                </svg>
+                <div class="text-sm text-gray-900"><%= t('nav.property') %></div>
+              <% end %>
+            </div>
+          </div>    <% end %>
+
+          <button type="button"  class="flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-minor" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="dropdown">
+            <span class="sr-only">Open user menu</span>
+            <img <%= image_tag 'user_profile.png', alt: 'Profile', class: 'h-8 rounded-full object-contain cursor-pointer hover:border hover:border-4 hover:border-minor' %>
+          </button>
+
+          <!-- Dropdown menu -->
+          <div class="hidden z-50 my-4 w-56 text-base list-none bg-white rounded divide-y divide-gray-100 shadow  " id="dropdown">
+<% if user_signed_in? %>
+  <div class="py-3 px-4">
+    <span class="block text-sm font-semibold text-gray-900"><%= current_user.name %></span>
+    <span class="block text-sm text-gray-900 truncate"><%= current_user.email %></span>
+  </div>
+<% end %>
+            <ul class="py-1 text-gray-700 " aria-labelledby="dropdown">
+              <li class="">
+                <%= link_to t('nav.sign_out'),
+                            destroy_user_session_path,
+                            data: { turbo_method: :delete },
+                            class: "block py-2 px-4 text-sm text-warning hover:bg-gray-100 rounded-b-xl" %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+     <!-- Sidebar -->
+
+    <aside class="fixed top-0 left-0 z-40 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0" aria-label="Sidenav" id="drawer-navigation">
+      <div class="overflow-y-auto py-5 px-3 h-full bg-white">
+        <div>
+          <ul class="pt-4 space-y-2">
+            <li>
+              <%= link_to dashboard_index_path(locale: I18n.locale), class: "flex items-center p-2 text-base font-medium text-ds-title rounded-lg group" do %>
+           
+                <svg aria-hidden="true" class="w-6 h-6 text-main transition duration-75 " fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
+                  <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
+                </svg>
+                <span class="font-bold ml-3">DASHBOARD</span>
+              <% end %>
+            </li>
+
+            <li>
+              <button type="button" class="flex items-center p-2 w-full text-base font-medium text-ds-subtitle rounded-lg transition duration-75 group hover:bg-gray-100 cursor-pointer" aria-controls="dropdown-activities" data-collapse-toggle="dropdown-activities">
+                <svg class="w-6 h-6 text-ds-subtitle hover:text-minor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m7.53316 11.8623.00957-.0029m5.58157 7.1424c-.5.515-.9195.8473-1.0611.8903-.4784.1454-5.42881-1.2797-6.23759-3.3305-.80878-2.0507-1.83058-5.8152-1.88967-6.2192-.0591-.40404 1.5599-1.72424 3.59722-2.61073m1.98839 8.05513c-.22637.262-.38955.5599-.55552.8474M13.4999 12c.5.5 1 1.049 2 1.049s1.5-.549 2-1.049m-4-4h.01m3.99 0h.01m-7.01-2.5c0-.28929 2.5-1.5 5-1.5s5 1.13645 5 1.5V12c0 1.9655-4.291 5-5 5-.7432 0-5-3.0345-5-5V5.5Z"/>
+                </svg>
+                <span class="flex-1 ml-3 font-medium text-left whitespace-nowrap"><%= t('nav.module_title_1') %></span>
+                  <svg aria-hidden="true" class="w-6 h-6" fill="currentColor"viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                  </svg>
+              </button>
+                <ul id="dropdown-activities" class="hidden py-2 space-y-2 text-ds-text">
+                  <li>
+                    <%= link_to activities_path, class: "flex items-center p-2 pl-11 w-full text-base rounded-lg transition duration-75 group hover:bg-gray-100" do %>
+                      <%= t('nav.module_all') %>
+                      <% end %>
+                  </li>
+                  <li>
+                    <% unless current_user.reader? %> <%= link_to t('nav.module_add'), new_activity_path(locale: I18n.locale), class: "flex items-center p-2 pl-11 w-full text-base rounded-lg transition duration-75 group hover:bg-gray-100" %> <% end %>
+                  </li>             
+                </ul>
+            </li>
+
+            <li>
+              <button type="button" class="flex items-center p-2 w-full text-base font-medium text-ds-subtitle rounded-lg transition duration-75 group hover:bg-gray-100 cursor-pointer" aria-controls="dropdown-others" data-collapse-toggle="dropdown-others">
+                <svg class="w-6 h-6 text-ds-subtitle hover:text-minor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-width="2" d="M11.083 5.104c.35-.8 1.485-.8 1.834 0l1.752 4.022a1 1 0 0 0 .84.597l4.463.342c.9.069 1.255 1.2.556 1.771l-3.33 2.723a1 1 0 0 0-.337 1.016l1.03 4.119c.214.858-.71 1.552-1.474 1.106l-3.913-2.281a1 1 0 0 0-1.008 0L7.583 20.8c-.764.446-1.688-.248-1.474-1.106l1.03-4.119A1 1 0 0 0 6.8 14.56l-3.33-2.723c-.698-.571-.342-1.702.557-1.771l4.462-.342a1 1 0 0 0 .84-.597l1.753-4.022Z"/>
+                </svg>
+                <span class="flex-1 ml-3 text-left whitespace-nowrap">
+                     <%= @module_title.send(I18n.locale == :es ? :nombre : :title).presence || t('others') %>             
+                </span>
+                <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+              </button>
+                <ul id="dropdown-others" class="hidden py-2 space-y-2 text-ds-text">
+                  <li>
+                    <a
+                    <%= link_to specials_path, class: "flex items-center p-2 pl-11 w-full text-base rounded-lg transition duration-75 group hover:bg-gray-100" do %>
+                      <%= t('nav.module_all') %>
+                    <% end %>
+                  </li>
+                  <li>
+                   <% unless current_user.reader? %>  <%= link_to t('nav.module_add'), new_special_path(locale: I18n.locale), class: "flex items-center p-2 pl-11 w-full text-base rounded-lg transition duration-75 group hover:bg-gray-100" %> <% end %>
+                  </li>
+                </ul>
+            </li>
+
+            <ul class="pt-5 mt-5 space-y-2 border-t border-gray-200">
+              <li>
+                <button type="button" class="flex items-center p-2 w-full text-base font-medium text-ds-subtitle rounded-lg transition duration-75 group hover:bg-gray-100 cursor-pointer" aria-controls="dropdown-restaurants" data-collapse-toggle="dropdown-restaurants">
+                  <svg class="w-6 h-6 text-ds-subtitle hover:text-minor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m10.4149 10.7623.0005.0109m3.0868 3.0764.0005.0108M8.91554 15.349l.00046.0108m-.8276-8.44549L4.39857 19.9133l12.95163-3.7371m-.8271-8.43475c2.0971 2.09707 3.269 4.77055 3.5172 7.51635.067.7413-.4619 1.3752-1.1869 1.5293-1.0146.2158-1.9613-.5811-2.0926-1.615-.2412-1.9-.9437-3.5721-2.52-5.1484-1.5779-1.57793-3.3173-2.3457-5.25302-2.61955-1.02139-.1445-1.79555-1.1099-1.5387-2.10314.17236-.66653.76818-1.14208 1.45754-1.08543 2.78088.22851 5.49388 1.40332 7.61648 3.52587Z"/>
+                  </svg>
+                  <span class="flex-1 ml-3 text-left whitespace-nowrap"><%= t('nav.module_title_3') %></span>
+                  <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                  </svg>
+                </button>
+
+                <ul id="dropdown-restaurants" class="hidden py-2 space-y-2 text-ds-text">
+                  <li>
+                    <%= link_to restaurants_path, class: "flex items-center p-2 pl-11 w-full text-base rounded-lg transition duration-75 group hover:bg-gray-100" do %>
+                      <%= t('nav.module_all') %>
+                    <% end %>
+                  </li>
+                  <li>
+                    <% unless current_user.reader? %> <%= link_to t('nav.module_add'), new_restaurant_path(locale: I18n.locale), class: "flex items-center p-2 pl-11 w-full text-base rounded-lg transition duration-75 group hover:bg-gray-100" %> <% end %>
+                  </li>
+                </ul>
+              </li>
+            
+              <li>
+                <button type="button" class="flex items-center p-2 w-full text-base font-medium text-ds-subtitle rounded-lg transition duration-75 group hover:bg-gray-100 cursor-pointer" aria-controls="dropdown-bars" data-collapse-toggle="dropdown-bars">
+                  <svg class="w-6 h-6 text-ds-subtitle hover:text-minor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 15c1.65685 0 3-1.3431 3-3V6H4v6c0 1.6569 1.34315 3 3 3Zm0 0v5m-2 0h4M4 9h6m6.6083 4.4863c1.5775-.5067 2.4456-2.1962 1.939-3.77367L16.7126 4 11 5.83463l1.8346 5.71267c.5066 1.5775 2.1962 2.4456 3.7737 1.939Zm0 0 1.5288 4.7605m-1.9042.6115 3.8084-1.2231m-8.124-8.94426 5.7126-1.83463"/>
+                  </svg>
+                  <span class="flex-1 ml-3 text-left whitespace-nowrap"><%= t('nav.module_title_4') %></span>
+                  <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                  </svg>
+                </button>
+
+                <ul id="dropdown-bars" class="hidden py-2 space-y-2 text-ds-text">
+                  <li>
+                    <%= link_to bars_path, class: "flex items-center p-2 pl-11 w-full text-base rounded-lg transition duration-75 group hover:bg-gray-100" do %>
+                      <%= t('nav.module_all') %>
+                    <% end %>
+                  </li>
+                  <li>
+                    <% unless current_user.reader? %> <%= link_to t('nav.module_add'), new_bar_path(locale: I18n.locale), class: "flex items-center p-2 pl-11 w-full text-base rounded-lg transition duration-75 group hover:bg-gray-100" %> <% end %>
+                  </li>
+                </ul>
+              </li>
+
+            </ul>
+         <ul
+          class="pt-5 mt-5 space-y-2 border-t border-gray-200 ">
+          <li>
+            <button type="button" class="flex items-center p-2 w-full text-base font-medium text-ds-subtitle rounded-lg transition duration-75 group hover:bg-gray-100 cursor-pointer" aria-controls="dropdown-staff"
+            data-collapse-toggle="dropdown-staff">
+              <svg class="w-6 h-6 text-ds-subtitle hover:text-minor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M16 19h4a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-2m-2.236-4a3 3 0 1 0 0-4M3 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Zm8-10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+              </svg>
+              <span class="flex-1 ml-3 text-left whitespace-nowrap"><%= t('nav.module_title_5') %></span>
+              <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+            </button>
+
+            <ul id="dropdown-staff" class="hidden py-2 space-y-2 text-ds-text">
+              <li>
+                <%= link_to staffs_path, class: "flex items-center p-2 pl-11 w-full text-base rounded-lg transition duration-75 group hover:bg-gray-100" do %>
+                  <%= t('nav.module_all') %>
+                <% end %>
+              </li>
+              <li>
+                <% unless current_user.reader? %> <%= link_to t('nav.module_add'), new_staff_path(locale: I18n.locale), class: "flex items-center p-2 pl-11 w-full text-base rounded-lg transition duration-75 group hover:bg-gray-100" %> <% end %>
+              </li>
+        </ul>
+      </div>
+
+      
+</div>
+
+
+      <div class="hidden absolute bottom-0 left-0 justify-center  border-t border-gray-200 p-4 space-x-4 w-full lg:flex bg-white z-20" >
+        <button data-tooltip-target="tooltip-property"class="inline-flex justify-center p-2 text-ds-subtitle rounded cursor-pointer hover:text-gray-900  hover:bg-gray-100 " type="button">
+          <svg id="updateHelpButton" data-modal-target="updateHelpModal" data-modal-toggle="updateHelpModal" class="w-6 h-6 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m13.46 8.291 3.849-3.849a1.5 1.5 0 0 1 2.122 0l.127.127a1.5 1.5 0 0 1 0 2.122l-3.84 3.838a4 4 0 0 0-2.258-2.238Zm0 0a4 4 0 0 1 2.263 2.238l3.662-3.662a8.961 8.961 0 0 1 0 10.27l-3.676-3.676m-2.25-5.17 3.678-3.676a8.961 8.961 0 0 0-10.27 0l3.662 3.662a4 4 0 0 0-2.238 2.258L4.615 6.863a8.96 8.96 0 0 0 0 10.27l3.662-3.662a4 4 0 0 0 2.258 2.238l-3.672 3.676a8.96 8.96 0 0 0 10.27 0l-3.662-3.662a4.001 4.001 0 0 0 2.238-2.262m0 0 3.849 3.848a1.5 1.5 0 0 1 0 2.122l-.127.126a1.499 1.499 0 0 1-2.122 0l-3.838-3.838a4 4 0 0 0 2.238-2.258Zm.29-1.461a4 4 0 1 1-8 0 4 4 0 0 1 8 0Zm-7.718 1.471-3.84 3.838a1.5 1.5 0 0 0 0 2.122l.128.126a1.5 1.5 0 0 0 2.122 0l3.848-3.848a4 4 0 0 1-2.258-2.238Zm2.248-5.19L6.69 4.442a1.5 1.5 0 0 0-2.122 0l-.127.127a1.5 1.5 0 0 0 0 2.122l3.849 3.848a4 4 0 0 1 2.238-2.258Z"/>
+          </svg>
+        </button>
+
+        <div id="tooltip-property" role="tooltip" class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-minor rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip"><%= t('nav.assistance') %>
+          <div class="tooltip-arrow" data-popper-arrow></div>
+        </div>
+
+        <% unless current_user.reader? %> 
+          <%= link_to settings_path, 
+                data: { tooltip_target: "tooltip-settings" },
+                class: "inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100" do %>
+            <svg aria-hidden="true" class="w-6 h-6 text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path>
+            </svg>
+          <% end %>
+
+          <div id="tooltip-settings" role="tooltip" class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-minor rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip"><%= t('nav.settings') %>
+            <div class="tooltip-arrow" data-popper-arrow></div>
+          </div>
+        <% end %>
+        
+        <button type="button" data-dropdown-toggle="language-dropdown" class="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100">
+          <svg class="w-6 h-6 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m13 19 3.5-9 3.5 9m-6.125-2h5.25M3 7h7m0 0h2m-2 0c0 1.63-.793 3.926-2.239 5.655M7.5 6.818V5m.261 7.655C6.79 13.82 5.521 14.725 4 15m3.761-2.345L5 10m2.761 2.655L10.2 15"/>
+          </svg>
+        </button>
+        
+        <!-- Dropdown -->
+        <div class="hidden z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow " id="language-dropdown">
+          <ul class="py-1" role="none">
+            <li>
+            <%= link_to url_for(locale: "en"), class: "block py-2 px-4 ..." do %>
+              <div class="inline-flex items-center">English (US)</div>
+            <% end %>
+            </li>
+            <li>
+              <%= link_to url_for(locale: "es"), class: "block py-2 px-4 ..." do %>
+                <div class="inline-flex items-center">Español (ES)</div>
+              <% end %>
+            </li>
+          </ul>
+        </div>
+
+        
+      </div>
+    </aside>
+
+
+
+
+<div id="updateHelpModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full bg-dark_gray/70 md:inset-0 h-modal md:h-full">
+  <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+    <!-- Modal content -->
+    <div class="relative p-4 bg-white rounded-lg shadow  sm:p-5">
+      <!-- Modal header -->
+      <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5">
+        <h3 class="text-lg font-semibold text-gray-900"><%= t('nav.assistance') %></h3>
+          <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="updateHelpModal">
+            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+            </svg>
+              <span class="sr-only">Close modal</span>
+          </button>
+      </div>
+      <!-- Modal body -->
+      <div class="space-y-2 text-center ">              
+        <p><strong>Email:</strong> support@hourglass.com.mx </p>
+        <p><strong>Tel:</strong> +52 1 33 1864 5505 </p>
+         <p>www.hourglass.com </p>
+      </div>
+    </div>
+  </div>
+</div>

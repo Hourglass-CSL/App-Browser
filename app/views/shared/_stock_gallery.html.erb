@@ -1,0 +1,16 @@
+<div class="flex flex-wrap md:gap-4 gap-2">
+  <% service = S3ImageService.new %>
+  <% images.each do |key| %>
+    <% filename = File.basename(key) %>
+    <div class="border border-gray-200 border-2 rounded p-2 hover:border-minor hover:border-2 flex flex-col items-center">
+<%= image_tag service.image_url(key),
+      class: "cursor-pointer select-stock-image md:h-auto md:w-20 h-auto w-18",
+      loading: "eager",
+      referrerpolicy: "no-referrer",
+      data: { image_key: key, field: params[:field] || '' } %>
+      <div class="text-xs text-gray-600 mt-1 max-w-[100px] truncate" title="<%= filename %>">
+        <%= truncate(filename, length: 10) %>
+      </div>
+    </div>
+  <% end %>
+</div>

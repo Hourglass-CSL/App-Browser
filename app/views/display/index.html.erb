@@ -1,0 +1,164 @@
+<%= render "shared/display_header" %>
+<main class="flex flex-col h-svh bg-main md:overflow-hidden">
+  <div class="flex-1 md:grid md:grid-rows-[2fr_3fr] md:overflow-hidden h-dvh md:flex-shrink-0">
+
+<!-- ACTIVITIES CAROUSEL -->
+    <section class="w-full md:overflow-hidden bg-carousel_back row-span-1 flex flex-col">
+      <div id="activities-wrapper" data-controller="carousel reconnect" data-carousel-delay-value="4000" data-carousel-target-selector-value="#activities> .flex-none" class="h-full overflow-x-auto no-scrollbar p-2">
+        <turbo-frame id="activities_list">
+          <%= turbo_stream_from "activities_list" %>
+            <div id="activities" class="inline-flex flex-nowrap items-stretch space-x-4 px-4 h-full">
+              <%= render partial: "activities/activity", collection: @activities, as: :activity %>
+            </div>
+        </turbo-frame>
+      </div>
+    </section>
+
+<!-- GRID BOTTOM SECTION -->
+ 
+    <section id="bottom_section" class="grid grid-cols-1 md:grid-cols-6 gap-4 md:overflow-hidden p-2 bg-main">
+
+      <!-- STAFF SECTION -->
+      <div class="flex flex-col md:min-h-0 min-h-[450px] order-last md:order-none">
+        <div class="bg-minor rounded-lg p-2">
+          <h2 class="text-card_title font-bold text-center text-xl uppercase"><%= t('modules.staff') %></h2>
+        </div>
+        <div id="staff-wrapper" data-controller="carousel reconnect" data-carousel-delay-value="5000" data-carousel-target-selector-value="#staff_members > .flex-none" class="h-full p-2 overflow-x-auto no-scrollbar rounded-lg">
+          <turbo-frame id="staff_list">
+          <!-- Staff Subscription -->
+            <%= turbo_stream_from "staff_list" %>
+              <div id="staff_members" class="flex flex-nowrap h-full">
+                <%= render partial: "staffs/staff_card", collection: @staff_members, as: :staff %>
+              </div>
+          </turbo-frame>
+        </div>
+      </div>
+
+      <!-- RESTAURANTS GRIDS-->
+      <div id="main_grid" class="flex flex-col md:col-span-2 h-full md:overflow-hidden">
+        <!-- BREAKFAST & LUNCH SECTION -->
+        <div class="grid md:grid-cols-2 grid-cols-1 md:gap-4 md:h-1/2">
+          <!-- Breakfast Section -->
+          <section id="breakfast_container" class="flex flex-col overflow-hidden">
+            <div class="bg-minor rounded-lg p-2">
+              <h2 class="text-card_title font-bold text-center text-xl truncate uppercase"><%= t('modules.breakfast') %></h2>
+            </div>
+            <!-- Breakfast Subscription -->
+            <%= turbo_stream_from "breakfast_restaurants" %>
+            <div id="breakfast_restaurants" data-controller="rotator" data-rotator-size-value="3" class="overflow-auto no-scrollbar content-center">                                                                     
+              <%= render partial: "restaurants/restaurant_card", collection: @breakfast_restaurants, as: :restaurant %>
+            </div>
+          </section>
+
+          <!-- Lunch Section -->
+          <section id="lunch_container" class="flex flex-col overflow-hidden">
+            <div class="bg-minor rounded-lg p-2">
+              <h2 class="text-card_title font-bold text-center text-xl uppercase"><%= t('modules.lunch') %></h2>
+            </div>
+            <!-- Lunch Subscription -->
+            <%= turbo_stream_from "lunch_restaurants" %>
+            <div id="lunch_restaurants" data-controller="rotator" data-rotator-size-value="3" class=" overflow-auto no-scrollbar">
+              <%= render partial: "restaurants/restaurant_card", collection: @lunch_restaurants, as: :restaurant %>
+            </div>
+          </section>
+        </div>
+
+        <!-- DINNER SECTION -->
+        <section id="dinner_container" class="flex flex-col md:h-1/2 overflow-hidden min-h-0">
+          <div class="bg-minor rounded-lg p-2">
+            <h2 class="text-card_title font-bold text-center text-xl uppercase"><%= t('modules.dinner') %></h2>
+          </div>
+          <!-- Dinner Subscription -->
+          <%= turbo_stream_from "dinner_restaurants" %>
+          <div id="dinner_restaurants" data-controller="rotator" data-rotator-size-value="6" class="grid md:grid-cols-2 overflow-auto gap-x-4 no-scrollbar">
+            <%= render partial: "restaurants/restaurant_card", collection: @dinner_restaurants, as: :restaurant %>
+          </div>
+        </section>
+      </div>
+
+
+      <!-- BARS GRID-->
+      <div class="flex flex-col min-h-0">
+        <div class="bg-minor rounded-lg p-2">
+          <h2 class="text-card_title font-bold text-center text-xl uppercase"><%= t('modules.bars') %></h2>
+        </div>
+        <!--Bar Subscription-->
+        <%= turbo_stream_from "bars" %>
+
+        <div id="bars" data-controller="rotator" data-rotator-size-value="6" class="flex flex-col overflow-auto no-scrollbar">
+          <% @bars.each do |bar| %>
+              <%= render "bars/bar_card", bar: bar %>
+           <% end %>
+        </div>
+      </div>
+
+
+      <!-- SETTINGS GRID-->
+        <div class="flex flex-col min-h-0 md:overflow-hidden gap-2">         
+          <div class="bg-minor rounded-lg p-2">
+            <h2 class="text-card_title font-bold text-center text-xl uppercase"><%= t('modules.info') %></h2>
+          </div>
+          <!--Settings Subscription-->
+          <%= turbo_stream_from "settings" %> 
+          <%= render partial: "settings/map", locals: { setting: @setting } %>
+          <%= render partial: "settings/qr", locals: { setting: @setting } %>
+        </div>
+
+      <!-- SPECIALS GRID-->
+        <div class="w-full flex flex-col md:min-h-0 min-h-[450px]">
+          <div class="bg-minor rounded-lg p-2">
+            <%= turbo_stream_from "module_title" %>
+              <%= turbo_frame_tag "module_title" do %>
+                <h1 class="text-card_title font-bold text-center text-xl uppercase">
+                 <%= @module_title.send(I18n.locale == :es ? :nombre : :title).presence || t('others') %> 
+                </h1>
+              <% end %>           
+          </div> 
+          <div id="specials-wrapper" data-controller="carousel reconnect" data-carousel-delay-value="6000" data-carousel-target-selector-value="#specials > .flex-none" class="h-full overflow-x-auto no-scrollbar pt-4">
+            <turbo-frame id="specials_list">
+              <%= turbo_stream_from "specials_list" %>
+                <div id="specials" class="flex flex-nowrap h-full">
+                  <%= render partial: "specials/special_card", collection: @specials, as: :special %>
+                </div>
+            </turbo-frame>
+          </div>
+        </div>
+
+
+    </section>
+  </div>
+</main>
+
+
+
+
+<div id="lang-overlay"
+     class="hidden fixed inset-0 z-50 bg-black/90 flex flex-col items-center justify-center">
+
+  <div class="relative flex items-center justify-center  ">
+    <!-- Spinner arco minimalista -->
+    <svg class="animate-spin absolute w-24 h-24 text-white" viewBox="0 0 32 32" fill="none">
+      <path
+        d="M16 2 a14 14 0 1 1 0 28"
+        stroke="currentColor"
+        stroke-width="1"
+        stroke-linecap="round"
+        fill="none"
+        class="text-minor/70"
+      />
+    </svg>
+    <!-- Logo centrado -->
+    <span class="relative z-10 flex items-center justify-center rounded-full">
+      <% if @setting.logo.attached? %>
+        <%= image_tag @setting.logo, class: "h-auto w-48  object-contain" %>
+      <% else %>
+        <span class="text-white text-lg font-semibold">Loading...</span>
+      <% end %>
+    </span>
+  </div>
+</div>
+
+ 
+
+
+ 

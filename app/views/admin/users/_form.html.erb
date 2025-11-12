@@ -1,0 +1,71 @@
+<div class="container mx-auto content-center w-1/2 rounded-lg md:py-14 md:px-14 px-4 py-8 bg-white shadow-lg">    
+  <%= form_with model: [:admin, @user], local: true do |f| %>
+    <% if @user.errors.any? %>
+      <div class="mb-8 bg-warning/10 border border-warning text-warning px-4 py-3 rounded-lg">
+        <h2 class="font-semibold"><%= t('warning_title') %></h2>
+        <ul class="pt-4">
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+  <% end %>
+
+  <div class="mb-4">
+    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 flex"><span class="flex w-2 h-2 me-3 bg-warning rounded-full"></span><%= t('nav.tab_name') %>:</label>
+    <%= f.text_field :name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" %>
+  </div>
+
+  <div class="mb-4">
+    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 flex"><span class="flex w-2 h-2 me-3 bg-warning rounded-full"></span>Email:</label>
+    <%= f.email_field :email, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" %>
+  </div>
+
+  <div class="mb-4" data-controller="password-visibility">
+    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 flex">
+      <span class="flex w-2 h-2 me-3 bg-warning rounded-full"></span>Password:
+    </label>
+    <div class="relative">
+      <%= f.password_field :password,
+            id: "password",
+            class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5",
+            data: { "password-visibility-target": "input" } %>
+      <button type="button"
+              data-action="password-visibility#toggle"
+              class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700">
+        <span data-password-visibility-target="icon">
+          <!-- icono inicial (cerrado) -->
+          <svg class="w-6 h-6 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3.933 13.909A4.357 4.357 0 0 1 3 12c0-1 4-6 9-6m7.6 3.8A5.068 5.068 0 0 1 21 12c0 1-3 6-9 6-.314 0-.62-.014-.918-.04M5 19 19 5m-4 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/> </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mb-4" data-controller="password-visibility">
+    <label for="password_confirmation" class="block mb-2 text-sm font-medium text-minor flex">Password confirmation:</label>
+    <div class="relative">
+      <%= f.password_field :password_confirmation,
+            id: "password_confirmation",
+            class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5",
+            data: { "password-visibility-target": "input" } %>
+
+      <button type="button"
+              data-action="password-visibility#toggle"
+              class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700">
+        <span data-password-visibility-target="icon">
+          <svg class="w-6 h-6 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3.933 13.909A4.357 4.357 0 0 1 3 12c0-1 4-6 9-6m7.6 3.8A5.068 5.068 0 0 1 21 12c0 1-3 6-9 6-.314 0-.62-.014-.918-.04M5 19 19 5m-4 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/> </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <label for="role" class="block mb-2 text-sm font-medium text-gray-900 flex"><span class="flex w-2 h-2 me-3 bg-warning rounded-full"></span>Rol:</label>
+    <%= f.select :role, User.roles.keys.map { |r| [r.humanize, r] }, {}, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" %>
+  </div>
+
+  <div class="mt-6">
+      <%= f.submit t('buttons.save'), class: "px-4 py-2 bg-minor text-white rounded hover:bg-main cursor-pointer" %>
+      <%= link_to_with_locale t('buttons.cancel'), admin_users_path, class: "px-4 py-2 text-ds-text rounded hover:bg-clear hover:text-ds-subtitle" %>
+  </div>
+<% end %>

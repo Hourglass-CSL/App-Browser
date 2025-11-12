@@ -1,0 +1,242 @@
+es:
+  hello: "Hello world"
+  all_days: "Todos los días"
+  date:
+    day_names: ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado"]
+    abbr_day_names: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    month_names: [~, "January ", "February ", "March", "April ", "May", "June ", "July", "August ", "September", "October ", "November", "December"]
+    abbr_month_names: [~, "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    formats:
+      default: "%d/%m/%Y"
+      long: "%A, %d del %B de %Y"
+      short: "%d de %B, %Y"
+      pdf: "%d de %B de %Y"
+  time:
+    formats:
+      default: "%A, %d del %B de %Y at %H:%M"
+      long: "%A %B %d, %Y"
+      time:  "%H:%M"
+      short: "%d de %B del %Y at %H:%M"
+      pdf: "%d de %B de %Y"
+
+  modules:
+      breakfast: "Desayunos y Brunch"
+      lunch: "Almuerzo"
+      dinner: "Cenas"
+      bars: "Bares"
+      info: "Más Información"
+      staff: "Staff de entretenimiento"
+
+  nav:
+      display_head: "CENTRO DE INFORMACIÓN"
+      display_head_text: "Descubre las mejores experiencias para ti"
+      module_title_1: "Actividades"
+      module_title_2: "Otros"
+      module_title_3: "Restaurantes"
+      module_title_4: "Bares"
+      module_title_5: "Staff"
+      module_member: "Miembros del Staff"
+      module_all: "Todos"
+      module_add: "Agregar Nuevo"
+      assistance: "Asistencia"
+      assistance_text: "Contacta a Hourglass para asistencia técnica"
+      settings: "Configuraciones"
+      tools: "Herramientas de Administrador"
+      users: "Usuarios"
+      users_text: "Agrega y edita la lista de usuarios"
+      qr: "Código QR"
+      qr_text: "Agrega un código QR para visualizar en dispositivos móviles"
+      qr_user_title: "Lleva El Hotel En Tu Bolsillo"
+      qr_user_text: "Solo escanea el código QR y explora todo"
+      logo: "Logo del Hotel"
+      logo_text: "Agrega el logo de la propiedad"
+      map: "Mapa del Hotel"
+      map_text: "Agrega el mapa de la propiedad"
+      map_user_text: "Click para ver el mapa del hotel"
+      module_update: "Actualizar Nombre del Módulo"
+      property: "Propiedad"
+      edit_property: "Editar Propiedad"
+      edit_settings: "Editar Configuraciones"
+      profile: "Mi Perfil"
+      sign_out: "Cerrar Sesión"
+      showing_info: "Mostrando información para:"
+      all_days: "Todos la Semana"
+      select_day: "Selecciona el día"
+      tab_cover: "Imagen"
+      tab_title: "Título"
+      tab_day: "Día de la semana"
+      tab_times: "Horario"
+      tab_times_open: "Abre"
+      tab_times_close: "Cierra"
+      tab_location: "Ubicación"
+      tab_description: "Descripción"
+      tab_photo: "Foto"
+      tab_pic: "Foto de Perfil:"
+      tab_name: "Nombre"
+      tab_role: "Puesto"
+      cat_1: "Desayuno y Brunch"
+      cat_2: "Comida"
+      cat_3: "Cenas"
+      new_activity: "Nueva Actividad"
+      new_restaurant: "Nuevo Restaurante"
+      new_bar: "Nuevo Bar"
+      new_staff: "Agregar Staff"
+      menu: "Estilo de Menú"
+      cuisine: "Tipo de Cocina"
+      dress: "Código de Vestimenta"
+      bar: "Estilo de Bar"
+      add_user: "Agregar Usuario"
+
+  empty: "No hay horarios programados para hoy"
+  warning_title: "Por favor, corrige los siguientes errores:"
+  great_day: "¡Esperamos que tengas un gran día hoy!"
+  hello: "Hola, ¿Cómo puedo ayudarte hoy?"
+  others: "OTROS"
+  buttons:
+    edit: "Editar"
+    back: "Regresar"
+    cancel: "Cancelar"
+    save: "Guardar"
+    new: "Nuevo"
+    view_menu: "Ver Menú"
+    view_map: "Ver Mapa"
+    view_logo: "Ver Logo"
+    view_qr: "Ver QR"
+    select: "Seleccionar Archivo"
+    
+  field_1: "Nombre de la Actividad"
+  field_3: "Nombre del Restaurant"
+  field_4: "Nombre del Bar"
+  field_5: "Nombre del Staff"
+  field_mandatory: "Campos Obligatorios"
+
+  activerecord:
+    models:
+      staff: "Empleado"
+      activity: "Actividades"
+      restaurant: "Restaurantes"
+      special: "Otros"
+      bar: "Bar"
+    attributes:
+      staff:
+        name: "Nombre del Staff"
+        position: "Puesto"
+      activity:
+        title: "Nombre de la actividad (English)"
+        location: "Ubicación (English)"
+        day_of_week: "Día de la semana"
+      restaurant:
+        restaurant_name: "Nombre del Restaurante (English)"
+        location: "Ubicación (English)"
+        day_of_week: "Día del la semana"
+        restaurant_type: "Estilo de Menú"
+        cuisine_type: "Tipo de Cocina"
+      special:
+        special_name: "Nombre de la actividad (English)"
+        location: "Ubicación (English)"
+        day_of_week: "Día de la semana"
+      bar:
+        bar_name: "Nombre del Bar (English)"
+        location: "Ubicación (English)"
+        day_of_week: "Día de la semana"
+
+    errors:
+      messages:
+        blank: "no puede estar en blanco."
+        taken: "ya está en uso"
+        confirmation: "las contraseñas no coinciden"
+        too_short: "la contraseña es demasiado corta (mínimo %{count} caracteres)"
+        unauthenticated: "usuario no reconocido o ha modificado su perfil"
+
+  devise:
+    sessions:
+      signed_in: "Has iniciado sesión correctamente."
+      signed_out: "Has cerrado sesión correctamente."
+      already_signed_out: "Ya has cerrado sesión."
+    registrations:
+        signed_up: "Te has registrado correctamente."
+        updated: "Tu cuenta se ha actualizado correctamente."
+        destroyed: "Tu cuenta se ha eliminado correctamente."
+    failure:
+      unauthenticated: "Necesitas iniciar sesión o registrarte para continuar."
+      invalid: "Email o contraseña inválidos."
+      not_found_in_database: "Email o contraseña inválidos."
+      already_authenticated: "Ya has iniciado sesión."
+      user:
+        unauthenticated: "Debes iniciar sesión como usuario para continuar."
+
+  restaurant:
+    meal_plan:
+      breakfast: "Desayuno"
+      brunch: "Brunch"
+      lunch: "Comida"
+      dinner: "Cena"
+    restaurant_type:
+      a_la_carte: "A la carta"
+      buffete: "Buffete"
+      beverages: "Bebidas"
+      childrens: "Menú infantil"
+      daily: "Diario"
+      snacks: "Snacks"
+      tasting: "Degustación"
+    cuisine_type:
+      american: "Americana"
+      french: "Francesa"
+      indian: "Hindú"
+      international: "Internacional"
+      italian: "Italiana"
+      japanese: "Japonesa"
+      mediterranean: "Mediterránea"
+      mexican: "Mexicana"
+      sushi: "Bar de Sushi"
+      seafood: "Mariscos"
+      thai: "Tailandesa"
+      tapas: "Tapas"
+    dress_code:
+      casual: "Casual"
+      business: "Informal de Negocios"
+      elegant: "Elegante"
+      formal: "Formal"
+      jacket: "Se Requiere Chaqueta"
+      smart_casual: "Casual elegante"
+      resort: "Resort"
+      swimwear: "Traje de baño"
+      no_dress_code: "Sin código"
+
+  bar:
+    bar_type:
+      brewerie: "Cervecería"
+      cocktail: "Bar de Cócteles"
+      jazz: "Bar de Jazz"
+      karaoke: "Karaoke Bar"
+      club: "Club Nocturno"
+      sport: "Deportivo"
+      sushi: "Sushi Bar"
+      roof: "Terraza"
+      wine: "Bar de Vino"
+      coffee: "Cafetería"
+      snack: "Bar de Snacks"
+      grill: "Grill Bar"
+    dress_code:
+      casual: "Casual"
+      business: "Informal de Negocios"
+      elegant: "Elegante"
+      formal: "Formal"
+      jacket: "Se Requiere Chaqueta"
+      smart_casual: "Casual elegante"
+      resort: "Resort"
+      swimwear: "Traje de baño"
+      no_dress_code: "Sin código"
+      
+  helpers:
+    select:
+      meal_plan: "Selecciona un plan de comida"
+      menu: "Selecciona un menú"
+      cuisine: "Selecciona un tipo de cocina"
+      dress: "Selecciona un código de vestir"
+      bar: "Selecciona un estilo de Bar"
+
+  flash:
+    created: "Información Guardada"
+    updated: "Información Actualizada"
+    deleted: "Información Eliminada"

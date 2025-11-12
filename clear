@@ -1,0 +1,272 @@
+[33mcommit 36e7f360869cd263bff403d8039b3a315246555e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31mheroku/master[m[33m)[m
+Author: Hiram Hdz. Gtz. <[200~230413995+DaSketcher@users.noreply.github.com>
+Date:   Tue Nov 11 10:57:31 2025 -0600
+
+    fix mobile display style
+
+[33mcommit aeb2e2657e93037c24073ae511663c9952bd71b7[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: Hiram Hdz. Gtz. <[200~230413995+DaSketcher@users.noreply.github.com>
+Date:   Fri Oct 17 09:51:53 2025 -0600
+
+    mobile lang button and remove  rotator plus menu file gallery
+
+[33mcommit 0eda61f06beddb63c9260328c242fdb404208891[m
+Author: Hiram Hdz. Gtz. <[200~230413995+DaSketcher@users.noreply.github.com>
+Date:   Mon Oct 6 11:26:30 2025 -0600
+
+    mobile lang button and rotator transition
+
+[33mcommit 5bc6a1404da42eb94ff187de5dd5c3358d30b1f7[m
+Author: Hiram Hdz. Gtz. <[200~230413995+DaSketcher@users.noreply.github.com>
+Date:   Fri Sep 19 20:07:31 2025 -0600
+
+    stock gallery images back to origen
+
+[33mcommit 50eeaaa9e133821d61fa4e84b34a1074df439d46[m
+Author: Hiram Hdz. Gtz. <[200~230413995+DaSketcher@users.noreply.github.com>
+Date:   Fri Sep 19 14:20:11 2025 -0600
+
+    Hourglass 2.0 Demo
+
+[33mcommit 52cf0b608ac7bcf33f332f117cbe1f91682f4d71[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Fri Sep 19 11:25:46 2025 -0600
+
+    map close popup fix
+
+[33mcommit 7ce1183f256e618ea79a0bb91a9487d45cbb3744[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Fri Sep 19 11:17:01 2025 -0600
+
+    map full button pop-up
+
+[33mcommit 83ed40f349dfe13e73928deb3aaaf378036d7b6a[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Mon Sep 15 13:02:22 2025 -0600
+
+    load img by batch in forms
+
+[33mcommit 33c4ccbf03220056457220ff25ab286938cfda92[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Mon Sep 15 12:55:48 2025 -0600
+
+    stock gallery back to the origen
+
+[33mcommit 4d589051187e39bef2543165357f1408f5c9e161[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Mon Sep 15 12:42:24 2025 -0600
+
+    image selection in forms
+
+[33mcommit fecd69643286962cb1634928bcaea3f8421a36b3[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Mon Sep 15 11:52:19 2025 -0600
+
+    settings back to the origen
+
+[33mcommit d89ab727cb9afce323bfd70d5606b4f7ea985cfe[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Sat Sep 13 15:55:49 2025 -0600
+
+    all variants removed, this time 4 real
+
+[33mcommit 6e2cd41c66dbee913407d8d9984992ec11006d53[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Sat Sep 13 14:21:17 2025 -0600
+
+    remove all variants
+
+[33mcommit ca0d8ef54815f9033ef9b54222f6d0011a05ff19[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Sat Sep 13 13:36:30 2025 -0600
+
+    remove all variants on activity
+
+[33mcommit d2ccf26b8b61442bf3b6d335664779aee7b0b710[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Sat Sep 13 13:07:50 2025 -0600
+
+    fix logo local in card
+
+[33mcommit e97016abb1b82659ec4760b77396af9bbc761dd5[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Sat Sep 13 12:49:41 2025 -0600
+
+    remove 1 variont on cards
+
+[33mcommit 52f881d9916b942abba7dbdba03cf3a6225240f8[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Fri Sep 12 15:46:42 2025 -0600
+
+    bar job fix
+
+[33mcommit 0ccca5477331fcd57050b010ea85dee7f2d78872[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Fri Sep 12 15:28:27 2025 -0600
+
+    restaurant job fix
+
+[33mcommit 3d5d708eaf769e0b6269a91d01cf39b49c7ed266[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Fri Sep 12 13:37:57 2025 -0600
+
+    direct image on show staff
+
+[33mcommit 78613939b01ba34ffcb397b0672835eb04eb7607[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Fri Sep 12 12:41:31 2025 -0600
+
+    staff job fixed
+
+[33mcommit 1d210a86cc3e5e2fedfef129943200bd40ed8786[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Fri Sep 12 12:34:18 2025 -0600
+
+    staff job fix
+
+[33mcommit 77bb9b984bb97e0f04f070fc547d8e5c3b69c70e[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Fri Sep 12 12:09:03 2025 -0600
+
+    staff job fix
+
+[33mcommit 3eb81d898660e5c5c327c811054b1878761aedc2[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Fri Sep 12 11:24:10 2025 -0600
+
+    special job checksum fix
+
+[33mcommit cd03bd18b0fc05ed600f6fa0fdcc8fae78310fd7[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Fri Sep 12 11:11:28 2025 -0600
+
+    _special fix
+
+[33mcommit 886a1774019b3a29e7574dcc7b18155cf798373e[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Fri Sep 12 10:50:55 2025 -0600
+
+    Special job fix
+
+[33mcommit 4f75a2c3c2e82d873dd93006a3ee8c5541cdea8a[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Fri Sep 12 10:23:45 2025 -0600
+
+    activity card fix
+
+[33mcommit 62eedd4c30f685ac05f1bef0406f52b205abfc8e[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Fri Sep 12 09:41:06 2025 -0600
+
+    Use vips for ActiveStorage variants/analyze
+
+[33mcommit 44c69239d12f906a30e68cad01be838a4607d39e[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Fri Sep 12 08:59:17 2025 -0600
+
+    fix activities job
+
+[33mcommit 17434a9a4a31966e5e629033cb080494d8cb87a6[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Thu Sep 11 21:05:10 2025 -0600
+
+    fix controller index
+
+[33mcommit 0e0f0ecb49691b2d6f6e4d209e728e6bfac9b695[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Thu Sep 11 21:03:09 2025 -0600
+
+    fix display controller
+
+[33mcommit 37fca311c7332b3eeb91add6888d7e8065868e4c[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Thu Sep 11 20:42:54 2025 -0600
+
+    controllers querys
+
+[33mcommit 57cb571035fea3e3e43c3b01d9bd7b6ed3b10dea[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Thu Sep 11 11:52:24 2025 -0600
+
+    small fixes on settings
+
+[33mcommit 56c058579a98b88280d31ac7e49f5d7e647813a5[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Thu Sep 11 10:40:37 2025 -0600
+
+    remove images from dashboards
+
+[33mcommit a3a126e0ad72c657576aee18341e4d9dd831cfb8[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Thu Sep 11 09:52:28 2025 -0600
+
+    activities variables
+
+[33mcommit b036427f33e439b67f3ec16599db416027b923f0[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Thu Sep 11 08:29:41 2025 -0600
+
+    remove variants
+
+[33mcommit 993e8870fb47f88cfb4d0f82a4fcc9de4a5b04bb[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Wed Sep 10 20:25:39 2025 -0600
+
+    activity, staff, special , restaurant preprocess job
+
+[33mcommit 84cf2f469ab30696948e99da9b3ac6d028711ca3[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Wed Sep 10 12:48:07 2025 -0600
+
+    bar menus outside job
+
+[33mcommit 2c67df1474a26b861e476321fef5e97f01a715af[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Wed Sep 10 12:19:58 2025 -0600
+
+    bar logo fix
+
+[33mcommit 88d7537067409c51cce911d70b0331d1ff95fab0[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Wed Sep 10 12:13:28 2025 -0600
+
+    bar popup
+
+[33mcommit b5dbc806241034e060ff8f46978d1b387db55f10[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Wed Sep 10 11:50:00 2025 -0600
+
+    popup cache fix
+
+[33mcommit eb3a86502216fed1fcd52716af57cca1c0b81c04[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Tue Sep 9 13:45:17 2025 -0600
+
+    staf, rest, special image cache
+
+[33mcommit 772384240207f3e480cbf9b9c80ca0bfca39739f[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Tue Sep 9 08:56:50 2025 -0600
+
+    image selection on forms
+
+[33mcommit 1199f7bf0f7fe85adcf8ae17253749620d05d74c[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Tue Sep 9 08:32:59 2025 -0600
+
+    pupup display without cache
+
+[33mcommit 0f70f12300a7fcec5a2289183b24709507958cb9[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Mon Sep 8 18:34:03 2025 -0600
+
+    bar pop up closes outside
+
+[33mcommit 6bf52a5648f6d5cec717f7122647bd8a44c3d845[m
+Author: Hiram Hdz. Gtz. <studio@dasketcher.com>
+Date:   Mon Sep 8 18:03:40 2025 -0600
+
+    bar pupup fix rotation
+
+[33mcommit 63aa79ea10f2848c6c8ad8010f4fa375ed105f61[m
+Author: Hiram Hdz. Gtz. <studio@daske

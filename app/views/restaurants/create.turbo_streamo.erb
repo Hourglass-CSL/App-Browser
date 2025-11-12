@@ -1,0 +1,5 @@
+<%= turbo_stream.prepend "restaurants" do %>
+  <div data-restaurant-rotator-target="card" id="<%= dom_id(@restaurant) %>" class="transition-opacity duration-500">
+    <%= render partial: "restaurants/restaurant", locals: { restaurant: @restaurant } %>
+  </div>
+<% end %>

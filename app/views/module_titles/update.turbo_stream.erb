@@ -1,0 +1,5 @@
+<%= turbo_stream.replace "module_title" do %>
+  <h1 class="text-3xl font-bold mb-6">
+    <%= @module_title.title.presence || "Other" %>
+  </h1>
+<% end %>

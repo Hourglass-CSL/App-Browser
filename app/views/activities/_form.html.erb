@@ -1,0 +1,124 @@
+<div class="rounded-lg md:py-14 md:px-14 px-4 py-8 bg-white shadow-lg">       
+  <%= form_with(model: @activity) do |f| %>
+    <% if @activity.errors.any? %>
+      <div class="mb-8 bg-warning/10 border border-warning text-warning px-4 py-3 rounded-lg">
+        <h2 class="font-semibold"><%= t('warning_title') %></h2>
+        <ul class="pt-4">
+          <% @activity.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+  <% end %>
+  
+  <div class="flex grid md:grid-cols-3 grid-cols-1 gap-4 mb-4">
+    <div class="md:col-span-2 ">
+      <label for="activity_name" class="block mb-2 text-sm font-medium text-gray-900 flex"><span class="flex w-2 h-2 me-3 bg-warning rounded-full"></span>Activity Name:<p class="pl-2 text-minor">(English)</p></label>
+      <%= f.text_field :title, maxlength: 32, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" %>
+    </div>
+    <div>
+      <label for="location" class="block mb-2 text-sm font-medium text-gray-900 flex"><span class="flex w-2 h-2 me-3 bg-warning rounded-full"></span>Location:<p class="pl-2 text-minor">(English)</p></label>
+      <%= f.text_field :location, maxlength: 32, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" %>
+    </div>
+
+    <div class="md:col-span-2 ">
+      <label for="nombre_actividad" class="block mb-2 text-sm font-medium text-gray-900 flex"><span class="flex w-2 h-2 me-3 bg-warning rounded-full"></span>Nombre de la Actividad:<p class="pl-2 text-minor">(Español)</p></label>
+      <%= f.text_field :nombre, maxlength: 32, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" %>
+    </div>
+    <div>
+      <label for="ubicacion" class="block mb-2 text-sm font-medium text-gray-900 flex"><span class="flex w-2 h-2 me-3 bg-warning rounded-full"></span>Ubicación:<p class="pl-2 text-minor">(Español)</p></label>
+      <%= f.text_field :ubicacion, maxlength: 32, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" %>
+    </div>
+
+
+
+    <div class="p-8 border-2 rounded-lg  border-gray-200">
+      <label class="block mb-2 text-sm font-medium text-gray-900 flex">
+        <span class="flex w-2 h-2 me-3 bg-warning rounded-full"></span>
+        <%= t('nav.tab_day') %>:
+      </label>
+      <% days_en = Date::DAYNAMES.rotate # ["Monday", ..., "Sunday"] %>
+      <% days_translated = I18n.t('date.day_names').rotate %>
+      <% days = days_en.zip(days_translated) %>
+      <%= f.collection_check_boxes :day_of_week, days, :first, :last do |b| %>
+        <div class="flex items-center mb-2">
+          <%= b.check_box(class: "w-4 h-4 text-main bg-gray-300 border-gray-300 rounded-lg focus:ring-minor focus:ring-2") %>
+          <%= b.label(class: "ml-2 text-sm text-gray-900") %>
+        </div>
+      <% end %>
+    </div>
+
+    
+    <div>
+      <label for="open_time" class="block mb-2 text-sm font-medium text-gray-900 flex"><span class="flex w-2 h-2 me-3 bg-warning rounded-full"></span><%= t('nav.tab_times_open') %>:</label>
+        <div class="relative">
+          <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
+            <svg class="w-4 h-4 text-gray-500  " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+          <%= f.text_field :open_time,
+            type: "time",
+            value: @activity.open_time&.strftime("%H:%M"),
+            class: "bg-gray-50 w-full border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5",
+            required: true %>
+        </div>
+    </div>
+
+
+    <div>
+      <label for="closed_time" class="block mb-2 text-sm font-medium text-gray-900 flex"><span class="flex w-2 h-2 me-3 bg-warning rounded-full"></span><%= t('nav.tab_times_close') %>:</label>
+        <div class="relative">
+          <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
+            <svg class="w-4 h-4 text-gray-500  " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+              <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+          <%= f.text_field :closed_time,
+      type: "time",
+      value: @activity.closed_time&.strftime("%H:%M"),
+      class: "bg-gray-50 w-full border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5",
+      required: true %>
+        </div>
+    </div>
+  </div>
+  <div class="flex grid md:grid-cols-2 grid-cols-1 gap-4 mb-4">
+    <div class="mb-4">
+      <label for="description" class="block mb-2 text-sm font-medium text-gray-900 flex">Description:<p class="pl-2 text-minor">(English)</p></label>
+      <%= f.text_area :description, maxlength: 120, rows: 5, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" %>
+    </div>
+        <div class="mb-4">
+      <label for="description" class="block mb-2 text-sm font-medium text-gray-900 flex">Descripción:<p class="pl-2 text-minor">(Español)</p></label>
+      <%= f.text_area :descripcion, maxlength: 120, rows: 5, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" %>
+    </div>
+  </div>
+
+
+
+    <div>
+      <label for="cover_image" class="block mb-2 text-sm font-medium text-gray-900 flex"><%= t('nav.tab_cover') %>:</label>
+        <button type="button" class="show-stock-gallery block text-sm rounded-lg cursor-pointer bg-gray-800 hover:bg-gray-600 focus:outline-none text-white font-semibold px-4 py-2" data-field="cover_image" data-folder="hourglass_app_20/shared/activities/,hourglass_app_20/demo/activities/">
+          <%= t('buttons.select') %>
+        </button>
+
+          <div id="selected-cover_image-filename" class="mt-2 text-xs text-gray-700"></div>
+            <%= hidden_field_tag :stock_image_key_cover_image, nil, id: "stock-image-key-cover_image" %>
+              <div id="stock-gallery-cover_image" class="hidden pt-4"></div>               
+              <% if @activity.persisted? && @activity.cover_image.attached? %>
+                <div class="mt-2">
+                <p class="text-sm text-gray-600">Current image:</p>
+                  <%= image_tag @activity.cover_image, size: "100x200", class: "rounded"  %>
+                </div>
+              <% end %> 
+            </div>
+
+    <div class="flex pt-4 space-x-4">
+      <%= f.submit t('buttons.save'), class: "px-4 py-2 bg-minor text-white rounded hover:bg-main cursor-pointer" %>
+      <%= link_to_with_locale t('buttons.cancel'), activities_path, class: "px-4 py-2 text-ds-text rounded hover:bg-clear hover:text-ds-subtitle" %>
+    </div>
+  <% end %>
+  <div class="flex items-center justify-end">
+   <span class="flex w-3 h-3 me-3 bg-warning rounded-full"></span>
+    <p class="text-ds-text"><%= t('field_mandatory') %>.</p>
+  </div>
+</div>

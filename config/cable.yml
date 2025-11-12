@@ -1,0 +1,14 @@
+ 
+development:
+  adapter: async
+
+test:
+  adapter: test
+
+production:
+  adapter: redis
+  url: <%= ENV['REDIS_URL'].presence || ENV['REDIS_TLS_URL'] %>
+  channel_prefix: hourglass_production
+  ssl_params:
+    # 0 == OpenSSL::SSL::VERIFY_NONE
+    verify_mode: 0

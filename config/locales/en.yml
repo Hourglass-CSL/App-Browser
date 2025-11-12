@@ -1,0 +1,270 @@
+# Files in the config/locales directory are used for internationalization and
+# are automatically loaded by Rails. If you want to use locales other than
+# English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t "hello"
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t("hello") %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more about the API, please read the Rails Internationalization guide
+# at https://guides.rubyonrails.org/i18n.html.
+#
+# Be aware that YAML interprets the following case-insensitive strings as
+# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
+# must be quoted to be interpreted as strings. For example:
+#
+#     en:
+#       "yes": yup
+#       enabled: "ON"
+
+en:
+  hello: "Hello world"
+  all_days: "All Days"
+  date:
+    day_names: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    abbr_day_names: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    month_names: [~, "January ", "February ", "March", "April ", "May", "June ", "July", "August ", "September", "October ", "November", "December"]
+    abbr_month_names: [~, "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    formats:
+      default: "%d/%m/%Y"
+      long: "%A, %d del %B de %Y"
+      short: "%d de %B, %Y"
+      pdf: "%d de %B de %Y"
+  time:
+    formats:
+      default: "%A, %d del %B de %Y at %H:%M"
+      long: "%A %B %d, %Y"
+      time:  "%H:%M"
+      short: "%d de %B del %Y at %H:%M"
+      pdf: "%d de %B de %Y"
+
+  modules:
+      breakfast: "Breakfast & Brunch"
+      lunch: "Lunch"
+      dinner: "Dinner"
+      bars: "Bars"
+      info: "More Info"
+      staff: "Entertainment Staff"
+
+  nav:
+      display_head: "GUEST INFO CENTER"
+      display_head_text: "Discover the best experiences for you"
+      module_title_1: "Activities"
+      module_title_2: "Others"
+      module_title_3: "Restaurants"
+      module_title_4: "Bars"
+      module_title_5: "Staff"
+      module_member: "Staff Members"
+      module_all: "All"
+      module_add: "Add New"
+      assistance: "Assistance"
+      assistance_text: "Contact Hourglass for assistance"
+      settings: "Settings"
+      tools: "Admin Tools"
+      users: "Users"
+      users_text: "Add and edit the users list"
+      qr: "QR Code"
+      qr_text: "Add a QR Code to display in mobile devices"
+      qr_user_title: "Take The Hotel In Your Pocket"
+      qr_user_text: "Just scan the QR Code and explore everything"
+      logo: "Hotel Logo"
+      logo_text: "Add the hotel logo"
+      map: "Hotel Map"
+      map_text: "Add a Map for the porperty"
+      map_user_text: "Click to view the property map"
+      module_update: "Update Module Title"
+      property: "Property"
+      edit_property: "Edit Property"
+      edit_settings: "Edit Settings"
+      profile: "My Profile"
+      sign_out: "Sign Out"
+      showing_info: "Showing information for:"
+      all_days: "All Week"
+      select_day: "Select a Day"
+      tab_cover: "Cover Image"
+      tab_title: "Title"
+      tab_day: "Day of the week"
+      tab_times: "Times"
+      tab_times_open: "Open Time"
+      tab_times_close: "Close Time"
+      tab_location: "Location"
+      tab_description: "Description"
+      tab_photo: "Photo"
+      tab_pic: "Profile Picture:"
+      tab_name: "Name"
+      tab_role: "Role"
+      cat_1: "Breakfast y Brunch"
+      cat_2: "Lunch"
+      cat_3: "Dinner"
+      new_activity: "New Activity"
+      new_restaurant: "New Restaurant"
+      new_bar: "New Bar"
+      new_staff: "Add Staff"
+      menu: "Menu Style"
+      cuisine: "Cuisine Type"
+      dress: "Dress Code"
+      bar: "Bar Style"
+      add_user: "Add User"
+
+  empty: "There's no schedules for today"
+  warning_title: "Please fix the following errors:"
+  great_day: "We hope you have a great day today!"
+  hello: "Hello, How may I assist you today?"
+  others: "OTHERS"
+  buttons:
+    edit: "Edit"
+    back: "Back"
+    cancel: "Cancel"
+    save: "Save"
+    new: "New"
+    view_menu: "View Menu"
+    view_map: "View Map"
+    view_logo: "View Logo"
+    view_qr: "View QR"
+    select: "Select File"
+
+  field_1: "Activity Name"
+  field_3: "Restaurant Name"
+  field_4: "Bar Name"
+  field_5: "Staff Name"
+  field_mandatory: "Mandatory fields"
+
+  activerecord:
+    models:
+      staff: "Staff"
+      activity: "Activity"
+      restaurant: "Restaurant"
+      special: "Other"
+      bar: "Bar"
+    attributes:
+      staff:
+        name: "Staff Name"
+        position: "Role"
+      activity:
+        title: "Activity Name"
+        location: "Location"
+        day_of_week: "Day of the Week"
+      restaurant:
+        restaurant_name: "Restaurant Name"
+        location: "Location"
+        day_of_week: "Day of the Week"
+        restaurant_type: "Menu Style"
+        cuisine_type: "Cuisine Type"
+      special:
+        special_name: "Activity Name"
+        location: "Location"
+        day_of_week: "Day of the Week"
+      bar:
+        bar_name: "Bar Name"
+        location: "Location"
+        day_of_week: "Day of the Week"
+
+    errors:
+      messages:
+        blank: can't be blank."
+        taken: "has already been taken"
+        confirmation: "las contraseñas no coinciden"
+        too_short: "password is too short, (minimun %{count} caracters)"
+        unauthenticated: "unauthenticated or profile records has changed"
+
+  devise:
+    sessions:
+      signed_in: "You have signed in successfully."
+      signed_out: "You have signed out successfully."
+      already_signed_out: "You have already signed out."
+    registrations:
+      signed_up: "You have signed up successfully."
+      updated: "Your account has been updated successfully."
+      destroyed: "Your account has been deleted successfully."
+    failure:
+      unauthenticated: "You need to sign in or sign up before continuing."
+      invalid: "Invalid email or password."
+      not_found_in_database: "Invalid email or password."
+      already_authenticated: "You are already signed in."
+      user:
+        unauthenticated: "You must sign in as a user to continue."
+
+  restaurant:
+    meal_plan:
+      breakfast: "Breakfast"
+      brunch: "Brunch"
+      lunch: "Lunch"
+      dinner: "Dinner"
+    restaurant_type:
+      a_la_carte: "A la Carte"
+      buffete: "Buffet"
+      beverages: "Beverages"
+      childrens: "Childrens"
+      daily: "Daily"
+      snacks: "Snacks"
+      tasting: "Tasting"
+    cuisine_type:
+      american: "American"
+      french: "French"
+      indian: "Indian"
+      international: "International"
+      italian: "Italian"
+      japanese: "Japanese"
+      mediterranean: "Mediterranean"
+      mexican: "Mexican"
+      sushi: "Sushi Bar"
+      seafood: "Seafood"
+      thai: "Thai"
+      tapas: "Tapas"
+    dress_code:
+      casual: "Casual"
+      business: "Business Casual"
+      elegant: "Elegant"
+      formal: "Formal"
+      jacket: "Jacket Required"
+      smart_casual: "Smart Casual"
+      resort: "Resort"
+      swimwear: "Swimwear"
+      no_dress_code: "No dress code"
+  bar:
+    bar_type:
+      brewerie: "Brewerie"
+      cocktail: "Cocktail Bar"
+      jazz: "Jazz Bar"
+      karaoke: "Karaoke"
+      club: "Nigth Club"
+      sport: "Sport Bar"
+      sushi: "Sushi Bar"
+      roof: "Roof Top"
+      wine: "Wine Bar"
+      coffee: "Coffee Bar"
+      snack: "Snacks Bar"
+      grill: "Grill Bar"
+    dress_code:
+      casual: "Casual"
+      business: "Business Casual"
+      elegant: "Elegant"
+      formal: "Formal"
+      jacket: "Jacket Required"
+      smart_casual: "Smart Casual"
+      resort: "Resort"
+      swimwear: "Swimwear"
+      no_dress_code: "No dress code"
+
+  helpers:
+    select:
+      meal_plan: "Select a meal plan"
+      menu: "Select a menu"
+      cuisine: "Select a cuisine type"
+      dress: "Select a dress code"
+      bar: "Select a bar style"
+
+  flash:
+    created: "Info Created"
+    updated: "Info Updated"
+    deleted: "Info Deleted"

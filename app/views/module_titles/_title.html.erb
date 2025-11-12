@@ -1,0 +1,5 @@
+<%= turbo_frame_tag "module_title" do %>
+  <h2 class="text-white font-bold text-center md:text-2xl text-xl uppercase">
+    <%= module_title.title.presence || "Other" %>
+  </h2>
+<% end %>

@@ -1,0 +1,8 @@
+<div id="setting_logo" class="flex mx-auto content-center h-full md:gap-8 ">
+      <% if setting.logo.attached? %>
+        <%= image_tag setting.logo, size: "200", class: "h-26 p-2 " %>
+      <% else %>
+        <h2 class="font-bold text-white">Hotel Logo</h2>
+      <% end %>
+</div>
+

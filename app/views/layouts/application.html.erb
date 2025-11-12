@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html class="h-full">
+  <head>
+    <title><%= content_for(:title) || "Hourglass App" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#0b1221">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+
+    <%= yield :head %>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+    <link rel="apple-touch-icon" href="/icons/icon-180.png">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <%= favicon_link_tag asset_path('favicon.ico') %>
+
+    <% csp_nonce = content_security_policy_nonce %>
+
+    <!-- CSS -->
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "tailwind",     "data-turbo-track": "reload" %>
+
+    <!-- Importmap: SIN nonce aquí -->
+    <%= javascript_importmap_tags %>
+
+    <!-- Carga el módulo de entrada de tu app -->
+    <%= javascript_import_module_tag "application" %>
+  </head>
+
+  <body class="h-full"> 
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.turbo.min.js" nonce="<%= csp_nonce %>"></script>
+
+ 
+    <script nonce="<%= csp_nonce %>">
+      window.APP_LOCALE = "<%= I18n.locale %>";
+    </script>
+
+    <div id="page-container" class="flex flex-col h-full">
+      <%= yield %>
+    </div>
+
+    <script nonce="<%= csp_nonce %>">
+      function switchLanguage(locale) {
+        let path = window.location.pathname.replace(/^\/(en|es)/, '');
+        window.location.href = `/${locale}${path}${window.location.search}`;
+      }
+    </script>
+
+    <script nonce="<%= csp_nonce %>">
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js').catch(console.error);
+        });
+      }
+    </script>
+  </body>
+</html>

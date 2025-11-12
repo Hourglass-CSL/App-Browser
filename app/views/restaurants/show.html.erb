@@ -1,0 +1,106 @@
+<div class="antialiased bg-gray-50 h-full">
+  <%= render "shared/dashboard_header" %> 
+  <%= render "shared/flash" %>
+  <main class=" p-4 md:ml-64 pt-20">
+
+    <div class="container mx-auto content-center">
+
+        <section class="flex md:flex-row flex-col mx-auto content-center items-center justify-between px-8 pb-4 md:space-y-0 space-y-8">
+        <h1 class="md:text-2xl text-xl uppercase text-minor font-bold"><%= @restaurant.restaurant_name %></h1>
+      </section>
+
+      <section class="flex justify-center md:justify-start rounded-lg md:py-14 md:px-14 px-4 py-8 shadow-lg bg-white">
+        <div class="mb-4 space-y-2 md.space-x- md:flex items-center">
+          <div>
+
+            <% if @restaurant.logo.attached? %>
+              <%= image_tag  @restaurant.logo, size: "100x100" %>
+                
+            <% else %>
+              <p class="text-gray-500"><strong>No logo uploaded</strong></p>
+            <% end %>
+
+
+          </div>
+          <div class="pl-8 md:pt-0 pt-4 content-center text-lg space-y-2 md:text-left text-center">
+            <p><strong>Meal Plan:</strong>  <%= t("restaurant.meal_plan.#{@restaurant.meal_plan}") %></p>
+            <p><strong><%= t('nav.menu') %>:</strong> <%= t("restaurant.restaurant_type.#{@restaurant.restaurant_type}") %></p>
+            <p><strong><%= t('nav.tab_day') %>:</strong> <%= @restaurant.day_of_week.reject(&:blank?).map { |day| I18n.t("date.day_names")[Date::DAYNAMES.index(day)] }.join(", ") %></p>
+            <p><strong><%= t('nav.tab_times') %>:</strong> <%= @restaurant.open_time.strftime("%-I:%M %p") %> - <%= @restaurant.closed_time.strftime("%-I:%M %p") %></p>
+            <p><strong><%= t('nav.tab_location') %>:</strong> <%= @restaurant.location %> / <%= @restaurant.ubicacion %></p>
+            <p><strong><%= t('nav.cuisine') %>:</strong> <%= t("restaurant.cuisine_type.#{@restaurant.cuisine_type}") %></p>
+            <p><strong><%= t('nav.dress') %>:</strong><%= if @restaurant.dress_code.present?
+                                                            t("restaurant.dress_code.#{@restaurant.dress_code}")
+                                                          else
+                                                            " ---"
+                                                          end %></p>
+<% if @restaurant.menu_file.attached? %>
+  <div class="mt-4 space-y-1">
+    <div class="flex items-center gap-2 text-gray-800">
+      <svg class="w-6 h-6 text-minor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-3 5h3m-6 0h.01M12 16h3m-6 0h.01M10 3v4h4V3h-4Z" />
+      </svg>
+      <span class="font-semibold">Menus (English):</span>
+    </div>
+
+    <% @restaurant.menu_file.each do |att| %>
+      <p class="ml-8">
+        <%= link_to att.filename.to_s, url_for(att), target: "_blank", rel: "noopener", class: "text-blue-600 underline" %>
+      </p>
+    <% end %>
+  </div>
+<% end %>
+
+<% if @restaurant.menu_file_es.attached? %>
+  <div class="mt-4 space-y-1">
+    <div class="flex items-center gap-2 text-gray-800">
+      <svg class="w-6 h-6 text-minor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-3 5h3m-6 0h.01M12 16h3m-6 0h.01M10 3v4h4V3h-4Z" />
+      </svg>
+      <span class="font-semibold">Menus (Español):</span>
+    </div>
+
+    <% @restaurant.menu_file_es.each do |att| %>
+      <p class="ml-8">
+        <%= link_to att.filename.to_s, url_for(att), target: "_blank", rel: "noopener", class: "text-blue-600 underline" %>
+      </p>
+    <% end %>
+  </div>
+<% end %>
+          </div>
+        </div>
+      </section>
+  
+      <% unless current_user.reader? %> 
+      <section class="flex md:justify-start justify-center pt-8 space-x-2">
+          <%= link_to_with_locale t('buttons.edit'), edit_restaurant_path(@restaurant), class: "px-4 py-2 bg-minor text-white rounded hover:bg-main" %>
+          <%= link_to_with_locale t('buttons.back'), restaurants_path, class: "px-4 py-2 text-ds-text rounded hover:bg-clear hover:text-ds-subtitle" %>
+      </section>
+      <% end %> 
+ 
+    </div>
+  </main>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

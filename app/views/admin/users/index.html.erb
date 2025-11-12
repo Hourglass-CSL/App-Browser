@@ -1,0 +1,79 @@
+<div class="antialiased bg-gray-50 h-full">
+  <%= render "shared/dashboard_header" %>
+  <div id="flash-container">
+    <%= render "shared/flash" %>
+  </div>
+
+    <main class="p-4 md:ml-64 pt-20">  
+      <section class="flex md:flex-row flex-col mx-auto content-center items-center justify-between px-8 pb-4 md:space-y-0 space-y-8">
+          <h1 class="md:text-2xl text-xl uppercase text-minor  font-bold"><%= t('nav.users') %></h1>
+            <div class=" ">
+              <%= link_to t('nav.add_user'),  new_admin_user_path(locale: I18n.locale), class: "px-4 py-2 bg-minor text-white rounded hover:bg-main" %>
+            </div>  
+      </section>
+
+      <section class="pt-4 mb-4">
+        <div class="overflow-x-auto shadow-lg">
+          <table class=" w-full divide-y divide-gray-200 ">
+            <thead class="bg-main/10 font-bold sticky top-0 ">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase">ID</th>
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase"><%= t('nav.tab_name') %></th>
+                <th class="ppx-6 py-3 text-left text-xs text-ds-subtitle uppercase">Email</th>
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase">Rol</th>
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase">Creado</th>           
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase">Último acceso</th> 
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase"> </th> 
+              </tr>
+            </thead>
+            <tbody class="divide-y">
+              <% @users.each do |u| %>
+                <tr>
+                  <td class="px-4 py-3"><%= u.id %></td>
+                  <td class="px-4 py-3 capitalize"><%= u.name.presence || "—" %></td>
+                  <td class="px-4 py-3"><%= u.email %></td>
+                  <td class="px-4 py-3">
+                    <span class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium
+                      <%= case u.role
+                        when "admin"  then "bg-warning/40 text-warning"
+                        when "user"   then "bg-minor/40 text-minor"
+                        else               "bg-gray-300/80 text-gray-600"
+                        end %>">
+                      <%= u.role %>
+                    </span></td>
+                  <td class="px-4 py-3"><%= u.created_at.to_fs(:short) %></td>
+                  <td class="px-4 py-3">
+                    <%= u.respond_to?(:last_sign_in_at) && u.last_sign_in_at ?
+                        u.last_sign_in_at.to_fs(:short) : "—" %></td>
+                  <td class="px-6 py-4">
+                    <span class="flex items-center space-x-4">
+                      <%= link_to edit_admin_user_path(u, locale: I18n.locale),
+                                  class: "text-blue-600 hover:text-blue-900",
+                                  title: "Editar usuario" do %>
+                      <!-- Icono Edit -->
+                        <svg class="w-6 h-6 text-gray-400 hover:text-success" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                        </svg>
+                      <% end %>
+                      <%= button_to admin_user_path(u, locale: I18n.locale),
+                                    method: :delete,
+                                    data: { turbo_confirm: "¿Eliminar a #{u.email}?" },
+                                    class: "inline-flex items-center px-2 py-1 text-warning hover:text-red-500 rounded-sm cursor-pointer",
+                                    title: "Eliminar usuario" do %>
+                        <!-- Icono Delete -->
+                        <svg class="w-6 h-6 text-gray-400 hover:text-warning" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                        </svg>
+                      <% end %>
+                    </span>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+</div>

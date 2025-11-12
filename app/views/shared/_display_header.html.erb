@@ -1,0 +1,46 @@
+<header>
+  <nav class="bg-main w-full px-4 lg:px-20 py-4 flex flex-col items-center space-y-4 md:space-y-0 md:flex-row md:justify-between md:h-26 relative">
+
+    <!-- Logo  -->
+    <div class="flex-none">
+      <%= render "shared/logo" %>
+    </div>
+
+    <!-- Texto  -->
+    <div class="md:absolute md:left-1/2 md:transform md:-translate-x-1/2 ">
+      <h1 class="text-card_title text-xl md:text-4xl font-bold truncate text-center"><%= t('nav.display_head') %></h1>
+      <p class="text-sm text-card_text text-center"><%= t('nav.display_head_text') %></p>
+    </div>
+
+
+    <!-- Idioma  -->
+    <div class="flex flex-col md:flex-row items-center md:space-x-6">
+      <%= render "shared/time" %>
+      <%= render "shared/language" %>
+    </div>
+
+
+ 
+  </nav>
+
+</header>
+
+
+
+
+<div id="mobile-lang-popup" class="hidden fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
+  <div class="bg-black rounded-lg p-6 w-80 max-w-full text-center">
+    <div class="flex justify-around">
+      <svg class="w-8 h-8 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m13 19 3.5-9 3.5 9m-6.125-2h5.25M3 7h7m0 0h2m-2 0c0 1.63-.793 3.926-2.239 5.655M7.5 6.818V5m.261 7.655C6.79 13.82 5.521 14.725 4 15m3.761-2.345L5 10m2.761 2.655L10.2 15"/>
+      </svg>  
+    </div>
+
+    <h2 class="text-sm text-white font-semibold"> Idioma / Language</h2>
+
+    <div class="flex justify-around pt-8">
+      <a href="/es" class="px-4 py-2 bg-button hover:bg-hover text-white rounded">Español</a>
+      <a href="/en" class="px-4 py-2 bg-button hover:bg-hover text-white rounded">English</a>
+    </div>
+  </div>
+</div>

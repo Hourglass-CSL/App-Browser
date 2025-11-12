@@ -1,0 +1,26 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5).to_i %>
+
+development:
+  <<: *default
+  database: hourglass_app__browser_development
+  host: localhost
+  username: postgres
+  password: Esteb4n
+
+test:
+  <<: *default
+  database: hourglass_app__browser_test
+  host: localhost
+  username: postgres
+  password: Esteb4n
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
+  pool: <%= ENV.fetch("DB_POOL", 5).to_i %>    
+  timeout: 5000                              
+  variables:
+    statement_timeout: 5000                   

@@ -1,0 +1,79 @@
+<div data-controller="popup" id="<%= dom_id(staff) %>" class="md:w-full md:h-full h-[560px]" tabindex="0">
+  <!-- Tarjeta -->
+  <div
+    data-action="click->popup#open"
+    class="relative h-full w-full aspect-[9/16] rounded overflow-hidden shadow-lg cursor-pointer bg-black/20"
+  >
+    <% if staff.profile_picture.attached? %>
+     <%= image_tag staff.profile_picture, size: "400x600", class: "absolute inset-0 h-full w-full object-cover" %>
+      
+      <!-- Overlay -->
+      <div class="absolute inset-0 bg-black/30"></div>
+    <% end %>
+
+    <div class="relative z-10 flex flex-col justify-between h-full p-4">
+      <div id="title" class="bg-card_banner/70 rounded-lg p-2">
+        <h3 class="w-full max-w-full text-card_title font-bold text-xl text-center uppercase overflow-hidden truncate text-ellipsis whitespace-nowrap">
+          <%= truncate(staff.name, length: 32, separator: ' ') %>
+        </h3>
+      </div>
+
+      <div id="content" class="bg-card_banner/70 rounded-lg p-2">
+        <p class="text-card_text text-xl font-bold text-center capitalize overflow-hidden truncate text-ellipsis whitespace-nowrap">
+          <%= staff.send(I18n.locale == :es ? :puesto : :position) %>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div
+    data-popup-target="dialog"
+    data-action="click->popup#clickOutside"
+    id="popup-<%= staff.id %>"
+    tabindex="-1"
+    aria-hidden="true"
+    class="hidden fixed top-0 left-0 right-0 z-50 w-full h-full overflow-x-hidden overflow-y-auto flex items-center justify-center bg-black/50"
+  >
+    <!-- Overlay -->
+    <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 overflow-y-auto">
+      <!-- Modal Body -->
+      <div
+        data-action="click->popup#preventClose"
+        class="relative max-w-xl bg-dark_gray/80 rounded-lg shadow overflow-hidden max-h-[90svh] md:max-h-[90vh] flex flex-col"
+      >
+        <!-- Header -->
+        <div class="flex justify-between items-center p-5 bg-minor/70 flex-none">
+          <h3 class="text-lg sm:text-2xl font-bold text-card_title uppercase">
+            <%= truncate(staff.name, length: 32, separator: ' ') %>
+          </h3>
+          <button
+            type="button"
+            data-action="click->popup#close"
+            class="text-white bg-transparent border border-white border-2 hover:bg-main hover:text-white hover:border-transparent rounded-xl text-sm p-1.5 ml-auto inline-flex items-center cursor-pointer"
+          >
+            <svg aria-hidden="true" class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+            <span class="sr-only">Close popup</span>
+          </button>
+        </div>
+
+        <!-- Content -->
+        <div class="flex-auto overflow-y-auto p-4 sm:p-6 space-y-4">
+          <!-- Foto (modal) -->
+          <% if staff.profile_picture.attached? %>
+            <div class="w-full overflow-hidden rounded-lg">
+            <%= image_tag staff.profile_picture, size: "600x900" %>
+            </div>
+          <% end %>
+
+          <!-- Bio -->
+          <p class="text-base sm:text-xl text-card_text md:text-center whitespace-normal break-words hyphens-auto capitalize">
+            <%= truncate((staff.send(I18n.locale == :es ? :descripcion : :bio).presence || t('hello')), length: 120, separator: ' ') %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

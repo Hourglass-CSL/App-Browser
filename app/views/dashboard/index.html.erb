@@ -1,0 +1,485 @@
+<div class="antialiased bg-gray-50 h-full">
+<%= render "shared/dashboard_header"%>
+<div id="flash-container">
+  <%= render "shared/flash" %>
+</div>
+  <main class="p-4 md:ml-64 pt-20">
+
+    <!-- FILTRO POR DIA -->
+      <section class="flex md:flex-row flex-col mx-auto content-center items-center justify-between px-8">
+        <% if params[:day].present? %>
+          <p class="text-gray-700 mt-2 text-xl">
+            <%= t('nav.showing_info') %>
+            <strong class="text-minor capitalize">
+              <% index = Date::DAYNAMES.rotate.index(params[:day]) %>
+              <% day_label = I18n.t('date.day_names').rotate[index] if index %>
+              <%= day_label || t('all_days') %>
+            </strong>
+          </p>
+        <% else %>
+          <p class="text-gray-700 mt-2 text-xl">
+            <%= t('nav.showing_info') %> <strong class="text-main"><%= t('nav.all_days') %></strong>
+          </p>
+        <% end %>
+
+      <%= turbo_frame_tag "dashboard_filters" do %>
+        <%= form_with url: dashboard_index_path(locale: I18n.locale),
+                      method: :get,
+                      data: { turbo_frame: "_top" },
+                      class: "mb-4" do %>
+          <div class="flex items-center space-x-4">
+            <% days_en         = Date::DAYNAMES.rotate %>
+            <% days_translated = I18n.t('date.day_names').rotate %>
+            <% options         = days_en.zip(days_translated) %>
+
+            <%= label_tag :day, t('nav.select_day'), class: "font-medium" %>
+
+            <%= select_tag :day,
+                options_for_select(options.map { |en, es| [es, en] }, params[:day]),
+                include_blank: t('nav.all_days'),
+                class: "border text-gray-900 rounded-lg focus:ring-minor focus:border-main block",
+                data: { controller: "autosubmit", action: "change->autosubmit#submit" } %>
+          </div>
+        <% end %>
+     
+            
+      </section>
+
+    <!-- MODULO DE ACTIVIDADES -->
+    <section class="grid grid grid-cols-1 gap-4 mb-4 pt-4">
+      <div class="bg-white rounded-lg md:col-span-2 bg-white rounded-lg shadow-lg pb-4">
+        <div class="bg-minor rounded-t-lg p-2 flex justify-between items-center md:px-8 px-4">
+          <h2 class="text-white font-bold text-center md:text-2xl text-xl uppercase"><%= t('nav.module_title_1') %></h2>
+            <% unless current_user.reader? %>  
+              <%= link_to new_activity_path do %>
+                <svg class="w-8 h-8 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                </svg>
+              <% end %>
+            <% end %>
+        </div>
+        <div class="overflow-x-auto"> <% if @activities.any? %>
+          <table class="w-full divide-y divide-gray-200">
+            <thead class="bg-main/10 font-bold sticky top-0 ">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase"><%= t('nav.tab_title') %></th>
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase"><%= t('nav.tab_times') %></th>
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase"><%= t('nav.tab_location') %></th>
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase"><%= t('nav.tab_description') %></th>
+                <% unless current_user.reader? %>
+                  <th class="px-6 py-3"></th>
+                <% end %>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <% @activities.each do |activity| %>
+                <tr id="<%= dom_id(activity) %>">
+                  <td class="px-6 py-4 capitalize hover:text-minor"><%= link_to activity.title, activity_path(activity, locale: I18n.locale) %> / <%= link_to activity.nombre, activity_path(activity, locale: I18n.locale) %></td>
+                  <td class="px-6 py-4 text-sm"><%= activity.open_time.strftime("%I:%M %p") %> - <%= activity.closed_time.strftime("%I:%M %p") %></td>
+                  <td class="px-6 py-4 capitalize"><%= activity.location %> / <%= activity.ubicacion %></td>
+                  <td class="px-6 py-4 capitalizeflex flex-col"><p class="truncate"><%= truncate(activity.description, length: 25) %></p> <p class="truncate"><%= truncate(activity.descripcion, length: 25) %></p></td>
+                  <% unless current_user.reader? %>
+                    <td class="px-6 py-4">
+                      <span class="flex items-center justify-end space-x-6">
+                        <%= link_to edit_activity_path(activity, locale: I18n.locale), title: "Edit Activity" do %>
+                          <svg class="w-6 h-6 text-gray-400 hover:text-success" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                          </svg>
+                        <% end %>
+                        <%= button_to activity_path(activity, locale: I18n.locale),
+                            method: :delete,
+                            data: { turbo_confirm: "Really delete this activity?" },
+                            class: "inline-flex items-center px-2 py-1 cursor-pointer" do %>
+                            <svg class="w-6 h-6 text-gray-400 hover:text-warning" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                            </svg>
+                        <% end %>
+                      </span>
+                    </td>
+                  <% end %>
+                </tr>
+              <% end %>
+              <% else %>
+                <p class="text-center my-8"><%= t('empty') %>.</p>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+ 
+    <!-- GRID DE RESTAURANTS Y BARES -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+
+      <!-- MODULO DE DESAYUNO -->
+      <div class="bg-white rounded-lg shadow-lg pb-4 ">
+        <div class="bg-minor rounded-t-lg p-2 flex justify-between items-center md:px-8 px-4">
+          <h2 class="text-white font-bold text-center md:text-2xl text-xl uppercase"><%= t('nav.cat_1') %> </h2>
+            <% unless current_user.reader? %>  
+              <%= link_to new_restaurant_path do %>
+                <svg class="w-8 h-8 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                </svg>
+              <% end %>
+            <% end %>
+        </div>
+        <div class="overflow-x-auto"> <% if @breakfast_restaurants.any? %>
+          <table class="w-full divide-y divide-gray-200 ">
+            <thead class="bg-main/10 font-bold sticky top-0 ">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase "><%= t('nav.tab_name') %></th>
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase"><%= t('nav.tab_times') %></th>
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase">Menu</th>
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase"><%= t('nav.tab_location') %></th>
+                <% unless current_user.reader? %>
+                  <th class="px-6 py-3"></th>
+                <% end %>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <% @breakfast_restaurants.each do |restaurant| %>
+                <tr id="<%= dom_id(restaurant) %>">
+                  <td class="px-6 py-4 capitalize hover:text-minor truncate"><%= link_to restaurant.restaurant_name, restaurant_path(restaurant, locale: I18n.locale) %></td> 
+                  <td class="px-6 py-4 text-sm"><%= restaurant.open_time.strftime("%-I:%M %p") %> – <%= restaurant.closed_time.strftime("%-I:%M %p") %></td>
+                  <td class="px-6 py-4 capitalize"><%= t("restaurant.restaurant_type.#{restaurant.restaurant_type}") %></td>
+                  <td class="px-6 py-4 capitalize"><%= restaurant.location %> / <%= restaurant.ubicacion %></td>
+                  <% unless current_user.reader? %>
+                    <td class="px-6 py-4">
+                      <span class="flex items-center justify-end gap-2">
+                        <%= link_to edit_restaurant_path(restaurant, locale: I18n.locale),   title: "Edit Restaurant" do %>
+                          <svg class="w-6 h-6 text-gray-400 hover:text-success" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                          </svg>
+                        <% end %>    
+                        <%= button_to restaurant_path(restaurant, locale: I18n.locale),
+                          method: :delete,
+                          data: { turbo_confirm: "Really delete this breakfast?" },
+                          class: "inline-flex items-center px-2 py-1 cursor-pointer" do %>
+                            <svg class="w-6 h-6 text-gray-400 hover:text-warning" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                            </svg>
+                        <% end %>
+                      </span>
+                    </td>
+                  <% end %>
+                </tr>
+              <% end %>
+              <% else %>
+                <p class="text-center my-8"><%= t('empty') %>.</p>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- MODULO DE COMIDA -->
+      <div class="bg-white rounded-lg shadow-lg pb-4">
+        <div class="bg-minor rounded-t-lg p-2 flex justify-between items-center md:px-8 px-4">
+          <h2 class="text-white font-bold text-center md:text-2xl text-xl uppercase"><%= t('nav.cat_2') %></h2>
+            <% unless current_user.reader? %>  
+              <%= link_to new_restaurant_path do %>
+                <svg class="w-8 h-8 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                </svg>
+              <% end %>
+            <% end %>
+        </div>
+        <div class="overflow-x-auto"> <% if @lunch_restaurants.any? %>
+          <table class="w-full divide-y divide-gray-200 ">
+            <thead class="bg-main/10 font-bold sticky top-0 ">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase"><%= t('nav.tab_name') %></th>
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase"><%= t('nav.tab_times') %></th>
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase">Menu</th>
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase"><%= t('nav.tab_location') %></th>
+                <% unless current_user.reader? %>
+                  <th class="px-6 py-3"></th>
+                <% end %>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <% @lunch_restaurants.each do |restaurant| %>
+                <tr id="<%= dom_id(restaurant) %>">
+                  <td class="px-6 py-4 capitalize hover:text-minor truncate"><%= link_to restaurant.restaurant_name, restaurant_path(restaurant, locale: I18n.locale) %></td>
+                  <td class="px-6 py-4 text-sm"><%= restaurant.open_time.strftime("%-I:%M %p") %> – <%= restaurant.closed_time.strftime("%-I:%M %p") %></td>
+                  <td class="px-6 py-4 capitalize"><%= t("restaurant.restaurant_type.#{restaurant.restaurant_type}") %></td>
+                  <td class="px-6 py-4 capitalize"><%= restaurant.location %> / <%= restaurant.ubicacion %></td>
+                  <% unless current_user.reader? %> 
+                    <td class="px-6 py-4">
+                      <span class="flex items-center justify-end gap-2">
+                        <%= link_to edit_restaurant_path(restaurant, locale: I18n.locale),   title: "Edit Restaurant" do %>
+                          <svg class="w-6 h-6 text-gray-400 hover:text-success" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                          </svg>
+                        <% end %>             
+                        <%= button_to restaurant_path(restaurant, locale: I18n.locale),
+                          method: :delete,
+                          data: { turbo_confirm: "Really delete this breakfast?" },
+                          class: "inline-flex items-center px-2 py-1 cursor-pointer" do %>
+                            <svg class="w-6 h-6 text-gray-400 hover:text-warning" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                            </svg>
+                        <% end %>
+                      </span>
+                    </td>
+                  <% end %>
+                </tr>
+              <% end %>
+              <% else %>
+                <p class="text-center my-8"><%= t('empty') %>.</p>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- MODULO DE CENA -->
+      <div class="bg-white rounded-lg shadow-lg pb-4">
+        <div class="bg-minor rounded-t-lg p-2 flex justify-between items-center md:px-8 px-4">
+          <h2 class="text-white font-bold text-center md:text-2xl text-xl uppercase"><%= t('nav.cat_3') %></h2>
+            <% unless current_user.reader? %> 
+              <%= link_to new_restaurant_path do %>
+                <svg class="w-8 h-8 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                </svg>
+              <% end %> 
+            <% end %>
+        </div>
+        <div class="overflow-x-auto"> <% if @dinner_restaurants.any? %>
+          <table class="w-full divide-y divide-gray-200 ">
+            <thead class="bg-main/10 font-bold sticky top-0 ">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase"><%= t('nav.tab_name') %></th>
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase"><%= t('nav.tab_times') %></th>
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase">Menu</th>
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase"><%= t('nav.tab_location') %></th>
+                <% unless current_user.reader? %> 
+                  <th class="px-6 py-3"></th>
+                <% end %>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <% @dinner_restaurants.each do |restaurant| %>
+                <tr id="<%= dom_id(restaurant) %>">                                            
+                  <td class="px-6 py-4 capitalize hover:text-minor truncate"><%= link_to restaurant.restaurant_name, restaurant_path(restaurant, locale: I18n.locale) %></td>
+                  <td class="px-6 py-4 text-sm"> <%= restaurant.open_time.strftime("%-I:%M %p") %> - <%= restaurant.closed_time.strftime("%-I:%M %p") %></td>
+                  <td class="px-6 py-4 capitalize"><%= t("restaurant.restaurant_type.#{restaurant.restaurant_type}") %></td>
+                  <td class="px-6 py-4 capitalize"><%= restaurant.location %> / <%= restaurant.ubicacion %></td>
+                  <% unless current_user.reader? %>  
+                    <td class="px-6 py-4">
+                      <span class="flex items-center justify-end gap-2">
+                        <%= link_to edit_restaurant_path(restaurant, locale: I18n.locale),  title: "Edit Restaurant" do %>
+                          <svg class="w-6 h-6 text-gray-400 hover:text-success" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                          </svg>
+                        <% end %>
+                    
+                        <%= button_to restaurant_path(restaurant, locale: I18n.locale),
+                          method: :delete,
+                          data: { turbo_confirm: "Really delete this breakfast?" },
+                          class: "inline-flex items-center px-2 py-1 cursor-pointer" do %>
+                            <svg class="w-6 h-6 text-gray-400 hover:text-warning" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                            </svg>
+                        <% end %>
+                      </span>
+                    </td>
+                  <% end %>
+                </tr>
+              <% end %>
+                  <% else %>
+                    <p class="text-center my-8"><%= t('empty') %>.</p>
+                  <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- MODULO DE BARES -->
+      <div class="bg-white rounded-lg shadow-lg pb-4">
+        <div class="bg-minor rounded-t-lg p-2 flex justify-between items-center md:px-8 px-4">
+          <h2 class="text-white font-bold text-center md:text-2xl text-xl uppercase"><%= t('nav.module_title_4') %></h2>
+            <% unless current_user.reader? %> 
+              <%= link_to new_bar_path do %>
+                <svg class="w-8 h-8 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                </svg>
+              <% end %>
+            <% end %>
+        </div>
+        <div class="overflow-x-auto"> <% if @bars.any? %>
+            <table class="w-full divide-y divide-gray-200 ">
+              <thead class="bg-main/10 font-bold sticky top-0 ">
+                <tr>
+                  <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase"><%= t('nav.tab_name') %></th>
+                  <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase"><%= t('nav.tab_times') %></th>
+                  <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase">Menu</th>
+                  <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase"><%= t('nav.tab_location') %></th>
+                  <% unless current_user.reader? %>  <th class="px-6 py-3"></th> <% end %>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <% @bars.each do |bar| %>
+                  <tr id="<%= dom_id(bar) %>">
+                    <td class="px-6 py-4 capitalize hover:text-minor truncate"><%= link_to bar.bar_name, bar_path(bar, locale: I18n.locale) %></td>
+                    <td class="px-6 py-4 text-sm"><%= bar.open_time.strftime("%-I:%M %p") %> - <%= bar.closed_time.strftime("%-I:%M %p") %></td>
+                    <td class="px-6 py-4 capitalize"><%= bar.bar_type %></td>
+                    <td class="px-6 py-4 capitalize"><%= bar.location %> / <%= bar.ubicacion %></td>
+                    <% unless current_user.reader? %> 
+                      <td class="px-6 py-4">
+                        <span class="flex items-center justify-end gap-2">
+                          <%= link_to edit_bar_path(bar, locale: I18n.locale), title: "Edit Bar" do %>
+                                                    <svg class="w-6 h-6 text-gray-400 hover:text-success" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                            </svg>
+                          <% end %>
+                          <%= button_to bar_path(bar, locale: I18n.locale),
+                            method: :delete,
+                            data: { turbo_confirm: "Really delete this bar?" },
+                            class: "inline-flex items-center px-2 py-1 cursor-pointer" do %>
+                            <svg class="w-6 h-6 text-gray-400 hover:text-warning" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                            </svg>
+                          <% end %>
+                        </span>
+                      </td>
+                    <% end %>
+                  </tr>
+                <% end %>
+                    <% else %>
+                      <p class="text-center my-8"><%= t('empty') %>.</p>
+                    <% end %>
+              </tbody>
+            </table>
+          </div>
+      </div>
+    </section>
+
+    <!-- GRID DE STAFF Y SPECIALS -->
+    <section class="grid grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
+
+      <!-- MODULO DE STAFF -->
+      <div class="bg-white rounded-lg shadow-lg pb-4">
+        <div class="bg-minor rounded-t-lg p-2 flex justify-between items-center md:px-8 px-4">
+          <h2 class="text-white font-bold text-center md:text-2xl text-xl uppercase"><%= t('nav.module_title_5') %></h2>
+            <% unless current_user.reader? %> 
+              <%= link_to new_staff_path do %>
+                <svg class="w-8 h-8 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                </svg>
+              <% end %>
+            <% end %>
+        </div>
+        <div class="overflow-x-auto"> <% if @staffs.any? %>
+          <table class="w-full divide-y divide-gray-200">
+            <thead class="bg-main/10 font-bold sticky top-0 ">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase"><%= t('nav.tab_name') %></th>
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase"><%= t('nav.tab_role') %></th>
+                <% unless current_user.reader? %>  <th class="px-6 py-3"></th> <% end %>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <% @staffs.each do |staff| %>
+                <tr id="<%= dom_id(staff) %>">
+                  <td class="px-6 py-4 capitalize hover:text-minor truncate"><%= link_to staff.name, staff_path(staff, locale: I18n.locale) %></td>
+                  <td class="px-6 py-4 capitalize"><%= staff.position %> / <%= staff.puesto %></td>
+                  <% unless current_user.reader? %> 
+                    <td class="px-6 py-4">
+                      <span class="flex items-center justify-end gap-2">
+                      <%= link_to edit_staff_path(staff, locale: I18n.locale), class: "text-blue-600 hover:text-blue-900", title: "Edit Staff" do %>
+                          <svg class="w-6 h-6 text-gray-400 hover:text-success" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                          </svg>
+                      <% end %>
+                      <%= button_to staff_path(staff, locale: I18n.locale),
+                            method: :delete,
+                            data: { turbo_confirm: "Really delete this Staff?" },
+                            class: "inline-flex items-center px-2 py-1 cursor-pointer" do %>
+                            <svg class="w-6 h-6 text-gray-400 hover:text-warning" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                            </svg>
+                        <% end %>
+                      </span>
+                    </td>
+                  <% end %>
+                </tr>
+              <% end %>
+                  <% else %>
+                    <p class="text-center my-8"><%= t('empty') %>.</p>
+                  <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- MODULO DE SPECIALS -->
+      <div class="bg-white rounded-lg shadow-lg pb-4">
+        <div class="bg-minor rounded-t-lg p-2 flex justify-between items-center md:px-8 px-4"> 
+          <div class ="flex items-center ">
+              <p class="text-white font-bold text-center md:text-2xl text-xl uppercase"><%= @module_title&.title.presence || t('nav.module_title_2') %></p>
+                <% unless current_user.reader? %> <button id="updateTitleButton" data-modal-target="updateTitleModal" data-modal-toggle="updateTitleModal" class="block cursor-pointer px-5" type="button">
+                  <svg class="w-6 h-6 text-white hover:text-success" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
+                  </svg>
+                </button> <% end %>
+          </div>
+          <% unless current_user.reader? %> 
+            <%= link_to new_special_path do %>
+              <svg class="w-8 h-8 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+              </svg>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="overflow-x-auto"> <% if @specials.any? %>
+          <table class="w-full divide-y divide-gray-200">
+            <thead class="bg-main/10 font-bold sticky top-0 ">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase"><%= t('nav.tab_title') %></th>
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase"><%= t('nav.tab_times') %></th>
+                <th class="px-6 py-3 text-left text-xs text-ds-subtitle uppercase"><%= t('nav.tab_description') %></th>
+                <th class="px-6 py-3"></th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <% @specials.each do |special| %>
+                <tr id="<%= dom_id(special) %>">
+                  <td class="px-6 py-4 capitalize hover:text-minor truncate"><%= link_to truncate(special.special_name, length: 20), special_path(special, locale: I18n.locale) %> / <%= link_to truncate(special.nombre, length: 10), special_path(special, locale: I18n.locale) %></td>
+                  <td class="px-6 py-4 text-sm"><%= special.open_time.strftime("%I:%M %p") %> - <%= special.closed_time.strftime("%I:%M %p") %></td>
+                  <td class="px-6 py-4 capitalize flex flex-col"><p class="truncate"><%= truncate(special.description, length: 15) %></p> <p class="truncate"><%= truncate(special.descripcion, length: 15) %></td>
+                  <% unless current_user.reader? %>
+                    <td class="px-6 py-4">
+                      <span class="flex items-center justify-end gap-2">
+                      <%= link_to edit_special_path(special, locale: I18n.locale),   title: "Edit Special" do %>
+                          <svg class="w-6 h-6 text-gray-400 hover:text-success" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                          </svg>
+                      <% end %>
+                      <%= button_to special_path(special, locale: I18n.locale),
+                            method: :delete,
+                            data: { turbo_confirm: "Really delete this Special?" },
+                            class: "inline-flex items-center px-2 py-1 cursor-pointer" do %>
+                            <svg class="w-6 h-6 text-gray-400 hover:text-warning" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                            </svg>
+                        <% end %>
+                    </td>
+                  <% end %>
+                </tr>
+              <% end %>
+                  <% else %>
+                    <p class="text-center my-8"><%= t('empty') %>.</p>
+                  <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  
+    <% end %>   
+  </main>
+</div>
+
+<%= render "specials/update_title_modal" %>

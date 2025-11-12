@@ -1,0 +1,81 @@
+<div data-controller="popup" id="<%= dom_id(special) %>" class="md:h-full md:w-full h-[560px]" tabindex="0">
+  <!-- Tarjeta -->
+  <div
+    data-action="click->popup#open"
+    class="relative h-full w-full aspect-[9/16] rounded overflow-hidden shadow-lg cursor-pointer bg-black/20"
+  >
+    <% if special.cover_image.attached? %>
+     <%= image_tag special.cover_image, size: "400x600", class: "absolute inset-0 w-full h-full object-cover rounded" %>
+      <!-- Overlay -->
+      <div class="absolute inset-0 bg-black/30 rounded"></div>
+    <% end %>
+
+    <div class="relative z-10 flex flex-col justify-between h-full p-4">
+      <div id="title" class="bg-card_banner/70 rounded-lg p-2">
+        <h3 class="w-full max-w-full text-card_title font-bold text-xl text-center uppercase overflow-hidden truncate text-ellipsis whitespace-nowrap">
+          <%= truncate(special.send(I18n.locale == :es ? :nombre : :special_name), length: 32, separator: ' ') %>
+        </h3>
+      </div>
+
+      <div id="content" class="bg-card_banner/70 rounded-lg p-2">
+        <p class="text-card_text font-bold text-center text-lg">
+          <%= special.open_time.strftime("%I:%M %p") %> &ndash;
+          <%= special.closed_time.strftime("%I:%M %p") %>
+        </p>
+
+        <span class="flex w-full items-center justify-center space-x-2 mx-auto content-center">
+          <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+            <path fill-rule="evenodd" d="M11.906 1.994a8.002 8.002 0 0 1 8.09 8.421 7.996 7.996 0 0 1-1.297 3.957.996.996 0 0 1-.133.204l-.108.129c-.178.243-.37.477-.573.699l-5.112 6.224a1 1 0 0 1-1.545 0L5.982 15.26l-.002-.002a18.146 18.146 0 0 1-.309-.38l-.133-.163a.999.999 0 0 1-.13-.202 7.995 7.995 0 0 1 6.498-12.518ZM15 9.997a3 3 0 1 1-5.999 0 3 3 0 0 1 5.999 0Z" clip-rule="evenodd"/>
+          </svg>
+          <p class="text-card_text text-center text-lg mt-1 capitalize">
+            <%= special.send(I18n.locale == :es ? :ubicacion : :location) %>
+          </p>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div
+    data-popup-target="dialog"
+    data-action="click->popup#clickOutside"
+    id="popup-<%= special.id %>"
+    tabindex="-1"
+    aria-hidden="true"
+    class="hidden fixed top-0 left-0 right-0 z-50 w-full h-full overflow-x-hidden overflow-y-auto flex items-center justify-center bg-black/50"
+  >
+    <!-- Overlay -->
+    <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 overflow-y-auto">
+      <!-- Modal Body -->
+      <div data-action="click->popup#preventClose" class="relative max-w-xl bg-dark_gray/80 rounded-lg shadow overflow-hidden max-h-[90svh] md:max-h-[90vh] flex flex-col">
+        <!-- Header -->
+        <div class="flex justify-between items-center p-4 sm:p-5 bg-minor/70 flex-none">
+          <h3 class="text-lg sm:text-2xl font-bold text-card_title uppercase">
+            <%= truncate(special.send(I18n.locale == :es ? :nombre : :special_name), length: 32, separator: ' ') %>
+          </h3>
+          <button type="button" data-action="click->popup#close" class="text-white bg-transparent border border-white border-2 hover:bg-main hover:text-white hover:border-transparent rounded-xl text-sm p-1.5 ml-auto inline-flex items-center cursor-pointer">
+            <svg aria-hidden="true" class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+            <span class="sr-only">Close popup</span>
+          </button>
+        </div>
+
+        <!-- Content -->
+        <div class="flex-auto overflow-y-auto p-4 sm:p-6 space-y-4">
+          <!-- Cover Imagen (modal) -->
+          <% if special.cover_image.attached? %>
+            <div class="w-full overflow-hidden rounded-lg">
+              <%= image_tag special.cover_image, size: "600x900" %>
+            </div>
+          <% end %>
+
+          <!-- Text -->
+          <p class="text-base sm:text-xl text-card_text md:text-center whitespace-normal break-words hyphens-auto capitalize">
+            <%= truncate((special.send(I18n.locale == :es ? :descripcion : :description).presence || t('great_day')), length: 120, separator: ' ') %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

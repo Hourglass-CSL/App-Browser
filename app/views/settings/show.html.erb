@@ -1,0 +1,257 @@
+<div class="antialiased bg-gray-50 h-full">
+<%= render "shared/dashboard_header" %> 
+ <div id="flash-container">
+  <%= render "shared/flash" %>
+</div>
+ 
+  <main class="p-4 md:ml-64 pt-20">  
+   <!-- HEADDER -->
+    <section class="flex md:flex-row flex-col mx-auto content-center items-center justify-between px-8 pb-4 md:space-y-0 space-y-8">
+        <h1 class="md:text-2xl text-xl uppercase text-minor  font-bold"><%= t('nav.settings') %></h1>
+    </section>
+
+     <!-- SETTINGS GRIDS --> 
+    <section class="pt-4 mb-4">
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- QR CODE -->
+        <% if user_signed_in? && current_user.admin? %> 
+          <div class="flex mx-auto content-center w-full gap-8 bg-white shadow-lg p-8 rounded-lg"> 
+
+          <button id="updateQRButton" data-modal-target="updateQRModal" data-modal-toggle="updateQRModal" class="bg-clear cursor-pointer hover:bg-gray-200 p-4 rounded-lg">
+          <% if @setting&.qr_code&.attached? %>
+             <%= image_tag @setting.qr_code, size: "100x100", id: "setting_qr" %>
+          <% else %>
+            <svg class="w-12 h-12 text-ds-subtitle" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M4 4h6v6H4V4Zm10 10h6v6h-6v-6Zm0-10h6v6h-6V4Zm-4 10h.01v.01H10V14Zm0 4h.01v.01H10V18Zm-3 2h.01v.01H7V20Zm0-4h.01v.01H7V16Zm-3 2h.01v.01H4V18Zm0-4h.01v.01H4V14Z"/>
+              <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M7 7h.01v.01H7V7Zm10 10h.01v.01H17V17Z"/>
+            </svg>
+            <% end %>
+          </button> 
+          <span>
+            <h2 class="font-bold text-ds-title"><%= t('nav.qr') %></h2>
+              <p class="text-ds-letter"><%= t('nav.qr_text') %>.</p>
+          </span>
+        </div>
+        <% end %>  
+
+        <!--USERS -->
+        <% if user_signed_in? && current_user.admin? %>
+          <div class="flex mx-auto content-center w-full gap-8 bg-white shadow-lg p-8 rounded-lg"> 
+              <%= link_to admin_users_path(locale: I18n.locale), 
+                          class: "bg-clear cursor-pointer hover:bg-gray-200 p-4 rounded-lg" do %>
+                <svg class="w-12 h-12 text-ds-subtitle" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" 
+                    width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-width="1.6" 
+                        d="M16 19h4a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-2m-2.236-4a3 3 0 1 0 0-4M3 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Zm8-10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                </svg>
+              <% end %>
+            <span>
+              <h2 class="font-bold text-ds-title"><%= t('nav.users') %></h2>
+                <p class="text-ds-letter"><%= t('nav.users_text') %>.</p>
+            </span>
+          </div>
+        <% end %>
+
+        <!-- ASSISTANCE -->
+        <div class="flex mx-auto content-center w-full gap-8 bg-white shadow-lg p-8 rounded-lg"> 
+            <button id="updateHelpButton" data-modal-target="updateHelpModal" data-modal-toggle="updateHelpModal" class="bg-clear cursor-pointer hover:bg-gray-200 p-4 rounded-lg">
+            <svg class="w-12 h-12 text-ds-subtitle" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.079 6.839a3 3 0 0 0-4.255.1M13 20h1.083A3.916 3.916 0 0 0 18 16.083V9A6 6 0 1 0 6 9v7m7 4v-1a1 1 0 0 0-1-1h-1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1Zm-7-4v-6H5a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h1Zm12-6h1a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-1v-6Z"/>
+            </svg>
+          </button>
+          <span>
+            <h2 class="font-bold text-ds-title"><%= t('nav.assistance') %></h2>
+              <p class="text-ds-letter"><%= t('nav.assistance_text') %>. </p>
+          </span>
+        </div>
+      </div>
+    </section>
+        
+    <!-- PROPERTY GRIDS -->
+    <section class="flex md:flex-row flex-col mx-auto content-center items-center justify-between pt-8 px-8 pb-4 md:space-y-0 space-y-8">
+        <h1 class="md:text-2xl text-xl uppercase text-minor  font-bold"><%= t('nav.property') %></h1>
+    </section>
+    
+    <section class="pt-4 mb-4">
+      <div class="grid md:grid-cols-3 gap-8">
+
+        <!-- HOTEL LOGO -->
+        <% if user_signed_in? && current_user.admin? %> 
+          <div class="flex mx-auto content-center w-full gap-8 bg-white shadow-lg p-8 rounded-lg">
+            <button id="updateLogoButton" data-modal-target="updateLogoModal" data-modal-toggle="updateLogoModal" class="bg-clear cursor-pointer hover:bg-gray-200 p-4 rounded-lg">
+              <% if @setting.logo.attached? %>
+                <%= image_tag @setting.logo, class: "w-32 h-auto", id: "setting_logo" %>
+                <% else %>
+                <svg class="w-12 h-12 text-ds-subtitle" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linejoin="round" stroke-width="1.6" d="M4.07141 14v6h5.99999v-6H4.07141Zm4.5-4h6.99999l-3.5-6-3.49999 6Zm7.99999 10c1.933 0 3.5-1.567 3.5-3.5s-1.567-3.5-3.5-3.5-3.5 1.567-3.5 3.5 1.567 3.5 3.5 3.5Z"/>
+                </svg>
+              <% end %> 
+            </button>
+          <span>
+            <h2 class="font-bold text-ds-title"><%= t('nav.logo') %></h2>
+              <p class="text-ds-letter"><%= t('nav.logo_text') %>.</p>
+          </span>
+
+          </div>
+        <% end %> 
+
+
+        <!-- HOTEL MAP -->
+        <div class="flex mx-auto content-center w-full gap-8 bg-white shadow-lg p-8 rounded-lg"> 
+          <button id="updateMapButton" data-modal-target="updateMapModal" data-modal-toggle="updateMapModal" class="bg-clear cursor-pointer hover:bg-gray-200 p-4 rounded-lg">
+ 
+            <svg class="w-12 h-12 text-ds-subtitle" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z"/>
+            </svg>
+          
+          </button>
+          <span>
+            <h2 class="font-bold text-ds-title"><%= t('nav.map') %></h2>
+              <p class="text-ds-letter"><%= t('nav.map_text') %>. </p>
+              <% if @setting.map.attached? %>
+                <p class="">
+                  <%= link_to t('buttons.view_map'), url_for(@setting.map), target: "_blank", rel: "noopener", class: "text-blue-600 underline" %>
+                </p>
+              <% end %>
+          </span>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- FORM MODALS -->
+
+<!-- QR CODE --> <% if user_signed_in? && current_user.admin? %>
+<div id="updateQRModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full bg-dark_gray/70 md:inset-0 h-modal md:h-full">
+  <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+    <!-- Modal content -->
+    <div class="relative p-4 bg-white rounded-lg shadow  sm:p-5">
+      <!-- Modal header -->
+      <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5">
+        <h3 class="text-lg font-semibold text-gray-900"><%= t('nav.edit_settings') %></h3>
+          <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="updateQRModal">
+              <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+              <span class="sr-only">Close modal</span>
+          </button>
+      </div>
+      <!-- Modal body -->
+      <div class="space-y-4 gap-4">   
+      <%= turbo_frame_tag "qr_form" do %>           
+          <%= form_with model: @setting, url: settings_path, method: :patch, data: { controller: "refresh", turbo_frame: "_top" }, html: { multipart: true } do |f| %>
+            <div class="mb-4">
+              <%= f.label :qr_code, t('nav.qr_text'), class: "block mb-2 text-sm font-medium text-gray-900 "%>
+                <button type="button" class="show-stock-gallery block text-sm rounded-lg cursor-pointer bg-gray-800 hover:bg-gray-600 focus:outline-none text-white font-semibold px-4 py-2" data-field="qr_code" data-folder="hourglass_app_20/demo/property/">
+                <%= t('buttons.select')%>
+                </button>
+                <div id="selected-qr_code-filename" class="mt-2 text-xs text-gray-700"></div>
+                  <%= hidden_field_tag :stock_image_key_qr_code, nil, id: "stock-image-key-qr_code" %>
+                    <div id="stock-gallery-qr_code" class="hidden pt-4"></div>               
+                    <% if @setting.persisted? && @setting.qr_code.attached? %>
+                      <div class="mt-2">
+                      <p class="text-sm text-gray-600 pb-2">Current image:</p>
+                        <%= image_tag @setting.qr_code, size: "100x100", class: "rounded bg-clear p-2" %>
+                        <div class="mt-2">
+                          <%= f.check_box :remove_qr_code, {}, "1", "0" %>
+                          <%= f.label :remove_qr_code, "Eliminar" %>
+                        </div>
+                      </div>
+                    <% end %> 
+                </div>
+                <%= f.submit t('buttons.save'), class: "px-4 py-2 bg-minor text-white rounded hover:bg-main cursor-pointer" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- HOTEL LOGO -->
+<div id="updateLogoModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full bg-dark_gray/70 md:inset-0 h-modal md:h-full">
+  <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+    <!-- Modal content -->
+    <div class="relative p-4 bg-white rounded-lg shadow  sm:p-5">
+      <!-- Modal header -->
+      <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5">
+        <h3 class="text-lg font-semibold text-gray-900"><%= t('nav.edit_property') %></h3>
+          <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="updateLogoModal">
+            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+            </svg>
+              <span class="sr-only">Close modal</span>
+          </button>
+      </div>
+      <!-- Modal body -->
+      <div class="space-y-4 gap-4">   
+        <%= turbo_frame_tag "logo_form" do %>           
+          <%= form_with model: @setting, url: settings_path, method: :patch, data: { controller: "refresh", turbo_frame: "_top" }, html: { multipart: true } do |f| %>
+            <div class="mb-4">
+              <%= f.label :logo,  t('nav.logo_text'), class: "block mb-2 text-sm font-medium text-gray-900" %>   
+                <button type="button" class="show-stock-gallery block text-sm rounded-lg cursor-pointer bg-gray-800 hover:bg-gray-600 focus:outline-none text-white font-semibold px-4 py-2" data-field="logo" data-folder="hourglass_app_20/demo/property/">
+                  <%= t('buttons.select')%>
+                </button>
+                <div id="selected-logo-filename" class="mt-2 text-xs text-gray-700"></div>
+                  <%= hidden_field_tag :stock_image_key_logo, nil, id: "stock-image-key-logo" %>
+                    <div id="stock-gallery-logo" class="hidden pt-4"></div>               
+                    <% if @setting.persisted? && @setting.logo.attached? %>
+                      <div class="mt-2 ">
+                      <p class="text-sm text-gray-600 pb-2">Current image:</p>
+                        <%= image_tag @setting.logo, size: "100x80", class: "rounded bg-gray-200 p-2" %>
+                      </div>
+                    <% end %> 
+                </div>
+            </div>
+            <%= f.submit t('buttons.save'), class: "px-4 py-2 bg-minor text-white rounded hover:bg-main cursor-pointer" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% end %>
+
+
+<!-- HOTEL MAP-->
+<div id="updateMapModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full bg-dark_gray/70 md:inset-0 h-modal md:h-full">
+  <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+    <!-- Modal content -->
+    <div class="relative p-4 bg-white rounded-lg shadow  sm:p-5">
+      <!-- Modal header -->
+      <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5">
+        <h3 class="text-lg font-semibold text-gray-900"><%= t('nav.edit_property') %></h3>
+          <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="updateMapModal">
+            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+            </svg>
+              <span class="sr-only">Close modal</span>
+          </button>
+      </div>
+      <!-- Modal body -->
+      <div class="space-y-4 gap-4">    
+        <%= turbo_frame_tag "map_form" do %>          
+          <%= form_with model: @setting, url: settings_path, method: :patch, data: { controller: "refresh", turbo_frame: "_top" }, html: { multipart: true } do |f| %>
+          <div class="mb-4">
+            <%= f.label :map, t('nav.map_text'), class: "block mb-2 text-sm font-medium text-gray-900 " %>
+            <button type="button" class="show-stock-gallery block text-sm rounded-lg cursor-pointer bg-gray-800 hover:bg-gray-600 focus:outline-none text-white font-semibold px-4 py-2" data-field="map" data-folder="hourglass_app_20/demo/property/">
+              <%= t('buttons.select')%>
+            </button>
+            <div id="selected-map-filename" class="mt-2 text-xs text-gray-700"></div>
+              <%= hidden_field_tag :stock_image_key_map, nil, id: "stock-image-key-map" %>
+                <div id="stock-gallery-map" class="hidden pt-4"></div>               
+                  <% if @setting.persisted? && @setting.map.attached? %>
+                    <div class="mt-2 ">
+                      <p class="text-sm text-gray-600 pb-2">Current image:</p>
+                         <%= image_tag @setting.map, size: "200x80", class: "rounded bg-clear p-2" %>
+                      </div>
+                  <% end %> 
+            </div>
+          <%= f.submit t('buttons.save'), class: "px-4 py-2 bg-minor text-white rounded hover:bg-main cursor-pointer" %>
+        <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

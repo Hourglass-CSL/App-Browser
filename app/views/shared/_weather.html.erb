@@ -1,0 +1,22 @@
+
+<div class=" ">
+    <div class ="flex items-center justify-between text-white md:text-xl text-lg font-bold">
+        <% @forecast_entries.each do |f| %>
+            <span class="">
+                <%= @city_name %>
+            </span>
+                <%= image_tag("https://openweathermap.org/img/wn/#{f[:icon_code]}@2x.png",alt: f[:description],class: "w-12 h-12  ")%>
+            <span class="">
+                <%= "#{f[:temp].round}°F" %>
+            </span>
+    </div>
+
+    <div class="font-bold text-white flex justify-between items-center space-x-4">
+        <span class="capitalize md:text-lg text-sm"><%= f[:description] %></span>
+        <span class="capitalize text-sm">Min. <%= f[:min] %></span>
+        <span class="capitalize text-sm">Max. <%= f[:max] %></span>   
+    </div>
+
+        <% end %>   
+</div>
+ 
