@@ -66,6 +66,6 @@ gem 'ruby-vips',        '~> 2.2'
 # gem 'mini_magick', '~> 5.2'
 gem 'inline_svg', '~> 1.10'
 gem "httparty"
-gem 'aws-sdk-s3', '~> 1.193'
+gem 'aws-sdk-s3', '~> 1.203'
 gem 'devise', '~> 4.9', '>= 4.9.4'
 gem 'pundit' 
