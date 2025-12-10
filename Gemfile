@@ -60,7 +60,7 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem 'tailwindcss-ruby', '~> 4.1.12'
+gem 'tailwindcss-ruby', '~> 4.1.16'
 gem 'image_processing', '~> 1.14'
 gem 'ruby-vips',        '~> 2.2'
 # gem 'mini_magick', '~> 5.2'
