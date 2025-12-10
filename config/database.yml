@@ -5,14 +5,14 @@ default: &default
 
 development:
   <<: *default
-  database: hourglass_app__browser_development
+  database: gfa_app_development
   host: localhost
   username: postgres
   password: Esteb4n
 
 test:
   <<: *default
-  database: hourglass_app__browser_test
+  database: gfa_app_test
   host: localhost
   username: postgres
   password: Esteb4n
