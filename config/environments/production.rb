@@ -38,10 +38,10 @@ Rails.application.configure do
   config.active_record.attributes_for_inspect = [:id]
 
   # URLs absolutas correctas para tu dominio
-  Rails.application.routes.default_url_options[:host] = "appdemo.hourglass.com.mx"
+  Rails.application.routes.default_url_options[:host] = "gfa.hourglass.com.mx"
   Rails.application.routes.default_url_options[:protocol] = "https"
-  config.action_controller.default_url_options = { host: "appdemo.hourglass.com.mx", protocol: "https" }
+  config.action_controller.default_url_options = { host: "gfa.hourglass.com.mx", protocol: "https" }
 
   # (opcional) si tienes CDN delante:
-  # config.asset_host = "https://appdemo.hourglass.com.mx"
+  # config.asset_host = "https://gfa.hourglass.com.mx"
 end

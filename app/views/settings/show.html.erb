@@ -142,7 +142,7 @@
           <%= form_with model: @setting, url: settings_path, method: :patch, data: { controller: "refresh", turbo_frame: "_top" }, html: { multipart: true } do |f| %>
             <div class="mb-4">
               <%= f.label :qr_code, t('nav.qr_text'), class: "block mb-2 text-sm font-medium text-gray-900 "%>
-                <button type="button" class="show-stock-gallery block text-sm rounded-lg cursor-pointer bg-gray-800 hover:bg-gray-600 focus:outline-none text-white font-semibold px-4 py-2" data-field="qr_code" data-folder="hourglass_app_20/demo/property/">
+                <button type="button" class="show-stock-gallery block text-sm rounded-lg cursor-pointer bg-gray-800 hover:bg-gray-600 focus:outline-none text-white font-semibold px-4 py-2" data-field="qr_code" data-folder="hourglass_app_20/GFALC/property/">
                 <%= t('buttons.select')%>
                 </button>
                 <div id="selected-qr_code-filename" class="mt-2 text-xs text-gray-700"></div>
@@ -189,7 +189,7 @@
           <%= form_with model: @setting, url: settings_path, method: :patch, data: { controller: "refresh", turbo_frame: "_top" }, html: { multipart: true } do |f| %>
             <div class="mb-4">
               <%= f.label :logo,  t('nav.logo_text'), class: "block mb-2 text-sm font-medium text-gray-900" %>   
-                <button type="button" class="show-stock-gallery block text-sm rounded-lg cursor-pointer bg-gray-800 hover:bg-gray-600 focus:outline-none text-white font-semibold px-4 py-2" data-field="logo" data-folder="hourglass_app_20/demo/property/">
+                <button type="button" class="show-stock-gallery block text-sm rounded-lg cursor-pointer bg-gray-800 hover:bg-gray-600 focus:outline-none text-white font-semibold px-4 py-2" data-field="logo" data-folder="hourglass_app_20/GFALC/property/">
                   <%= t('buttons.select')%>
                 </button>
                 <div id="selected-logo-filename" class="mt-2 text-xs text-gray-700"></div>
@@ -235,7 +235,7 @@
           <%= form_with model: @setting, url: settings_path, method: :patch, data: { controller: "refresh", turbo_frame: "_top" }, html: { multipart: true } do |f| %>
           <div class="mb-4">
             <%= f.label :map, t('nav.map_text'), class: "block mb-2 text-sm font-medium text-gray-900 " %>
-            <button type="button" class="show-stock-gallery block text-sm rounded-lg cursor-pointer bg-gray-800 hover:bg-gray-600 focus:outline-none text-white font-semibold px-4 py-2" data-field="map" data-folder="hourglass_app_20/demo/property/">
+            <button type="button" class="show-stock-gallery block text-sm rounded-lg cursor-pointer bg-gray-800 hover:bg-gray-600 focus:outline-none text-white font-semibold px-4 py-2" data-field="map" data-folder="hourglass_app_20/GFALC/property/">
               <%= t('buttons.select')%>
             </button>
             <div id="selected-map-filename" class="mt-2 text-xs text-gray-700"></div>

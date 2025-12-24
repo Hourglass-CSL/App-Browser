@@ -5,23 +5,23 @@
 @theme {
   --color-black: #000000;
   --color-white: #ffffff;
-  --color-main: #6920a6;
-  --color-minor: #9632eb;
-  --color-dark_gray: #1c1c24;
+  --color-main: #c8ae8b;
+  --color-minor: #cfc2af;
+  --color-dark_gray: #444233;
   --color-card_title: #ffffff;
   --color-card_text: #ffffff;
-  --color-card_banner: #9632eb;
-  --color-carousel_back: #000000;
+  --color-card_banner: #c8ae8b;
+  --color-carousel_back: #444233;
 
   --color-bg-dashboard: #f9fafb;
   --color-clear: #f3f4f6;
   --color-neutral: #b8b8b8;
-  --color-button: #5217a3;
-  --color-hover: #6e38b8;
+  --color-button: #444233;
+  --color-hover: #585644;
   --color-active: #9927c9;
   --color-warning: #f5346a;
   --color-success: #4ade80;
-  --color-ds-title: #9927c9;
+  --color-ds-title: #444233;
   --color-ds-subtitle: #646464;
   --color-ds-text: #7e7b7b;
 
