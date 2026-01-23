@@ -1,8 +1,9 @@
 class SettingsController < ApplicationController
   before_action :set_setting
 
-  def show
-  end
+def show
+   @spa = Spa.first_or_create!(spa_name: "Spa")
+end
 
   def edit
   end

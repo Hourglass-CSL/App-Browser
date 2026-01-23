@@ -23,6 +23,12 @@ end
     delete :purge_menu_file_es
   end
 end
+
+resource :spa, only: [:show, :update] do
+  delete :purge_menu_file
+  delete :purge_menu_file_es
+end
+
     resources :activities
     resources :specials
     resource :module_title, only: [:edit, :update]

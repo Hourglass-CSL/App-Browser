@@ -94,14 +94,20 @@
 
 
       <!-- SETTINGS GRID-->
-        <div class="flex flex-col min-h-0 md:overflow-hidden gap-2">         
+        <div class="flex flex-col h-full min-h-0 gap-1 md:overflow-hidden">         
           <div class="bg-minor rounded-lg p-2">
             <h2 class="text-card_title font-bold text-center text-xl uppercase"><%= t('modules.info') %></h2>
           </div>
           <!--Settings Subscription-->
           <%= turbo_stream_from "settings" %> 
-          <%= render partial: "settings/map", locals: { setting: @setting } %>
-          <%= render partial: "settings/qr", locals: { setting: @setting } %>
+     
+  <div class="flex flex-col flex-1 min-h-0 gap-1">
+    <%= render partial: "settings/map", locals: { setting: @setting } %>
+    <%= render partial: "spas/spa", locals: { spa: @spa } %>
+    <%= render partial: "settings/map", locals: { setting: @setting } %>
+    <%= render partial: "settings/map", locals: { setting: @setting } %>
+    <%= render partial: "settings/qr",  locals: { setting: @setting } %>
+  </div>
         </div>
 
       <!-- SPECIALS GRID-->

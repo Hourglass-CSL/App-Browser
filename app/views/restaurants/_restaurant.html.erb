@@ -1,10 +1,10 @@
 <div id="rest_cards" class="flex flex-wrap  rounded-lg shadow-lg  ">
   <div class="flex items-center w-full rounded-lg space-x-4 bg-dark_gray shrink ">
 
-      <div class="rounded-l-lg content-center md:p-3 p-4">
+      <div class="rounded-l-lg content-center md:p-3 p-4  ">
 
       <% if restaurant.logo.attached? %>
-       <%= image_tag  restaurant.logo, size: "90x90", class: "h-18 w-18 rounded" %>
+       <%= image_tag  restaurant.logo, class: "h-18 w-18 rounded object-contain" %>
   
       <% else %>
         <div class="h-20 w-20 rounded bg-gray-700 animate-pulse"></div>

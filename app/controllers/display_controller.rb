@@ -2,6 +2,7 @@ class DisplayController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index]
   
 def index
+   @spa = Spa.first_or_create!(spa_name: "Spa")
     @staff_members = Staff.order(:name)
     .with_attached_profile_picture
 

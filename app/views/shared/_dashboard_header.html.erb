@@ -200,6 +200,8 @@
               </li>
 
             </ul>
+
+
          <ul
           class="pt-5 mt-5 space-y-2 border-t border-gray-200 ">
           <li>
@@ -224,6 +226,38 @@
                 <% unless current_user.reader? %> <%= link_to t('nav.module_add'), new_staff_path(locale: I18n.locale), class: "flex items-center p-2 pl-11 w-full text-base rounded-lg transition duration-75 group hover:bg-gray-100" %> <% end %>
               </li>
         </ul>
+
+                 <ul
+          class="pt-5 mt-5 space-y-2 border-t border-gray-200 ">
+          <li>
+            <button type="button" class="flex items-center p-2 w-full text-base font-medium text-ds-subtitle rounded-lg transition duration-75 group hover:bg-gray-100 cursor-pointer" aria-controls="dropdown-property"
+            data-collapse-toggle="dropdown-property">
+                <svg class="w-6 h-6 text-ds-subtitle hover:text-minor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 4h12M6 4v16M6 4H5m13 0v16m0-16h1m-1 16H6m12 0h1M6 20H5M9 7h1v1H9V7Zm5 0h1v1h-1V7Zm-5 4h1v1H9v-1Zm5 0h1v1h-1v-1Zm-3 4h2a1 1 0 0 1 1 1v4h-4v-4a1 1 0 0 1 1-1Z"/>
+                </svg>
+
+              <span class="flex-1 ml-3 text-left whitespace-nowrap"><%= t('nav.property') %></span>
+              <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+
+            </button>
+
+            <ul id="dropdown-property" class="hidden py-2 space-y-2 text-ds-text">
+              <li>
+                <%= link_to settings_path, class: "flex items-center p-2 pl-11 w-full text-base rounded-lg transition duration-75 group hover:bg-gray-100" do %>
+                  <%= t('nav.map') %>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to settings_path, class: "flex items-center p-2 pl-11 w-full text-base rounded-lg transition duration-75 group hover:bg-gray-100" do %>
+                  <%= t('nav.module_title_6') %>
+                <% end %>
+              </li>
+ 
+        </ul>
+
+        
       </div>
 
       
