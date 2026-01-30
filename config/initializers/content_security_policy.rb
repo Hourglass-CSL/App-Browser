@@ -18,6 +18,6 @@ Rails.application.configure do
 
     p.connect_src :self, :https, :wss
 
-    p.frame_ancestors :self, :https
+    p.frame_ancestors :self, :https, :http
   end
 end
