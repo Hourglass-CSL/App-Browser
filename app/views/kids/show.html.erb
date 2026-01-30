@@ -1,0 +1,224 @@
+<div class="antialiased bg-gray-50 h-full">
+  <%= render "shared/dashboard_header" %>
+
+  <div id="flash-container">
+    <%= render "shared/flash" %>
+  </div>
+
+  <main class="p-4 md:ml-64 pt-20">
+    <section class="flex md:flex-row flex-col mx-auto content-center items-center justify-between pt-8 px-8 pb-4 md:space-y-0 space-y-8">
+      <h1 class="md:text-2xl text-xl uppercase text-minor font-bold">
+        <%= t("nav.module_title_7") %>
+      </h1>
+    </section>
+
+    <section class="pt-4 mb-4">
+      <div class="grid md:grid-cols-3 gap-8">
+
+        <!-- KIDS -->
+        <div class="flex mx-auto content-center w-full gap-8 bg-white shadow-lg p-8 rounded-lg">
+          <button
+            id="updateKidsButton"
+            data-modal-target="updateKidsModal"
+            data-modal-toggle="updateKidsModal"
+            class="bg-clear cursor-pointer hover:bg-gray-200 p-4 rounded-lg"
+          >
+            <svg
+              class="w-12 h-12 text-ds-subtitle"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M14.99 9H15M8.99 9H9m12 3a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM7 13c0 1 .507 2.397 1.494 3.216a5.5 5.5 0 0 0 7.022 0C16.503 15.397 17 14 17 13c0 0-1.99 1-4.995 1S7 13 7 13Z"
+              />
+            </svg>
+          </button>
+
+          <span>
+            <h2 class="font-bold text-ds-title">
+              <%= t("nav.module_title_7") %>
+            </h2>
+
+            <p class="text-ds-letter">
+              <%= t("nav.kids_text", default: "Kids Club menu files") %>.
+            </p>
+
+            <p>
+              <%= link_to t("buttons.view_menu"),
+                          "#",
+                          data: { modal_target: "updateKidsModal", modal_toggle: "updateKidsModal" },
+                          role: "button",
+                          class: "text-blue-600 underline" %>
+            </p>
+          </span>
+        </div>
+
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- KIDS MENUS MODAL -->
+<div
+  id="updateKidsModal"
+  tabindex="-1"
+  aria-hidden="true"
+  class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full bg-dark_gray/70 md:inset-0 h-modal md:h-full"
+>
+  <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+    <div class="relative p-4 bg-white rounded-lg shadow sm:p-5">
+
+      <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5">
+        <h3 class="text-lg font-semibold text-gray-900">
+          <%= t("nav.edit_property") %>
+        </h3>
+
+        <button
+          type="button"
+          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+          data-modal-toggle="updateKidsModal"
+        >
+          <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+            />
+          </svg>
+          <span class="sr-only">Close modal</span>
+        </button>
+      </div>
+
+      <div class="space-y-4 gap-4">
+        <%= turbo_frame_tag "kids_form" do %>
+          <%= form_with model: @kids,
+                        url: kids_path,
+                        method: :patch,
+                        data: { turbo_frame: "_top" },
+                        html: { multipart: true } do |form| %>
+
+            <p class="mb-2 text-sm font-medium text-gray-900">
+              <%= t("nav.kids_text", default: "Kids Club menu files") %>
+            </p>
+
+            <!-- EN -->
+            <div class="mb-4">
+              <label class="block mb-2 text-sm font-medium text-gray-900 flex">
+                Menu: <span class="pl-2 text-minor">(English)</span>
+              </label>
+
+              <button
+                type="button"
+                class="show-stock-gallery block text-sm rounded-lg cursor-pointer bg-gray-800 hover:bg-gray-600 focus:outline-none text-white font-semibold px-4 py-2"
+                data-field="menu_file"
+                data-folder="hourglass_app_20/GFALC/kidsclub/"
+              >
+                <%= t("buttons.select") %>
+              </button>
+
+              <div id="selected-menu_file-filename" class="mt-2 text-xs text-gray-700"></div>
+
+              <%= form.hidden_field :stock_image_keys_menu_file,
+                                    id: "stock-image-keys-menu_file" %>
+
+              <div id="stock-gallery-menu_file" class="hidden pt-4"></div>
+
+              <% if @kids.menu_file.attached? %>
+                <div class="mt-2 text-xs text-gray-700">
+                  <span class="font-semibold block mb-1">Seleccionado:</span>
+
+                  <div class="mt-2 flex flex-wrap gap-2">
+                    <% @kids.menu_file.each do |att| %>
+                      <div class="inline-flex items-center gap-2 px-2 py-1 bg-gray-100 rounded">
+                        <%= link_to att.filename,
+                                    url_for(att),
+                                    target: "_blank",
+                                    class: "text-blue-600 underline" %>
+
+                        <%= link_to purge_menu_file_kids_path(attachment_id: att.id),
+                                    data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este archivo?" },
+                                    class: "text-red-600 hover:text-red-700 inline-flex items-center justify-center" do %>
+                          <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm5.757-1a1 1 0 1 0 0 2h8.486a1 1 0 1 0 0-2H7.757Z"
+                            />
+                          </svg>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+
+            <!-- ES -->
+            <div class="mb-4">
+              <label class="block mb-2 text-sm font-medium text-gray-900 flex">
+                Menu: <span class="pl-2 text-minor">(Español)</span>
+              </label>
+
+              <button
+                type="button"
+                class="show-stock-gallery block text-sm rounded-lg cursor-pointer bg-gray-800 hover:bg-gray-600 focus:outline-none text-white font-semibold px-4 py-2"
+                data-field="menu_file_es"
+                data-folder="hourglass_app_20/GFALC/kidsclub/"
+              >
+                <%= t("buttons.select") %>
+              </button>
+
+              <div id="selected-menu_file_es-filename" class="mt-2 text-xs text-gray-700"></div>
+
+              <%= form.hidden_field :stock_image_keys_menu_file_es,
+                                    id: "stock-image-keys-menu_file_es" %>
+
+              <div id="stock-gallery-menu_file_es" class="hidden pt-4"></div>
+
+              <% if @kids.menu_file_es.attached? %>
+                <div class="mt-2 text-xs text-gray-700">
+                  <span class="font-semibold block mb-1">Seleccionado:</span>
+
+                  <div class="mt-2 flex flex-wrap gap-2">
+                    <% @kids.menu_file_es.each do |att| %>
+                      <div class="inline-flex items-center gap-2 px-2 py-1 bg-gray-100 rounded">
+                        <%= link_to att.filename,
+                                    url_for(att),
+                                    target: "_blank",
+                                    class: "text-blue-600 underline" %>
+
+                        <%= link_to purge_menu_file_es_kids_path(attachment_id: att.id),
+                                    data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este archivo?" },
+                                    class: "text-red-600 hover:text-red-700 inline-flex items-center justify-center" do %>
+                          <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm5.757-1a1 1 0 1 0 0 2h8.486a1 1 0 1 0 0-2H7.757Z"
+                            />
+                          </svg>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+
+            <%= form.submit t("buttons.save"),
+                            class: "px-4 py-2 bg-minor text-white rounded hover:bg-main cursor-pointer" %>
+          <% end %>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

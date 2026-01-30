@@ -3,6 +3,9 @@ class DisplayController < ApplicationController
   
 def index
    @spa = Spa.first_or_create!(spa_name: "Spa")
+   @kids = Kid.first_or_create!(kids_name: "Kids Club")
+   @teens = Teen.first_or_create!(Tens_name: "Teens Club")
+   
     @staff_members = Staff.order(:name)
     .with_attached_profile_picture
 

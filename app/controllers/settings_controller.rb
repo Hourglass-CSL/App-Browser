@@ -3,6 +3,7 @@ class SettingsController < ApplicationController
 
 def show
    @spa = Spa.first_or_create!(spa_name: "Spa")
+   @kids = Kid.first_or_create!(kids_name: "Kids Club")
 end
 
   def edit

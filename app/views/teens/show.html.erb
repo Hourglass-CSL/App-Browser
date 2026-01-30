@@ -1,0 +1,224 @@
+<div class="antialiased bg-gray-50 h-full">
+  <%= render "shared/dashboard_header" %>
+
+  <div id="flash-container">
+    <%= render "shared/flash" %>
+  </div>
+
+  <main class="p-4 md:ml-64 pt-20">
+    <section class="flex md:flex-row flex-col mx-auto content-center items-center justify-between pt-8 px-8 pb-4 md:space-y-0 space-y-8">
+      <h1 class="md:text-2xl text-xl uppercase text-minor font-bold">
+        <%= t("nav.module_title_8") %>
+      </h1>
+    </section>
+
+    <section class="pt-4 mb-4">
+      <div class="grid md:grid-cols-3 gap-8">
+
+        <!-- TEENS -->
+        <div class="flex mx-auto content-center w-full gap-8 bg-white shadow-lg p-8 rounded-lg">
+          <button
+            id="updateTeensButton"
+            data-modal-target="updateTeensModal"
+            data-modal-toggle="updateTeensModal"
+            class="bg-clear cursor-pointer hover:bg-gray-200 p-4 rounded-lg"
+          >
+            <svg
+              class="w-12 h-12 text-ds-subtitle"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M12 2a10 10 0 1 0 10 10A10.009 10.009 0 0 0 12 2Zm6.613 4.614a8.523 8.523 0 0 1 1.93 5.32 20.093 20.093 0 0 0-5.949-.274c-.059-.149-.122-.292-.184-.441a23.879 23.879 0 0 0-.566-1.239 11.41 11.41 0 0 0 4.769-3.366ZM10 3.707a8.82 8.82 0 0 1 2-.238 8.5 8.5 0 0 1 5.664 2.152 9.608 9.608 0 0 1-4.476 3.087A45.755 45.755 0 0 0 10 3.707Zm-6.358 6.555a8.57 8.57 0 0 1 4.73-5.981 53.99 53.99 0 0 1 3.168 4.941 32.078 32.078 0 0 1-7.9 1.04h.002Zm2.01 7.46a8.51 8.51 0 0 1-2.2-5.707v-.262a31.641 31.641 0 0 0 8.777-1.219c.243.477.477.964.692 1.449-.114.032-.227.067-.336.1a13.569 13.569 0 0 0-6.942 5.636l.009.003ZM12 20.556a8.508 8.508 0 0 1-5.243-1.8 11.717 11.717 0 0 1 6.7-5.332.509.509 0 0 1 .055-.02 35.65 35.65 0 0 1 1.819 6.476 8.476 8.476 0 0 1-3.331.676Zm4.772-1.462A37.232 37.232 0 0 0 15.113 13a12.513 12.513 0 0 1 5.321.364 8.56 8.56 0 0 1-3.66 5.73h-.002Z"
+              />
+            </svg>
+          </button>
+
+          <span>
+            <h2 class="font-bold text-ds-title">
+              <%= t("nav.module_title_8") %>
+            </h2>
+
+            <p class="text-ds-letter">
+              <%= t("nav.teens_text", default: "Teens menu files") %>.
+            </p>
+
+            <p>
+              <%= link_to t("buttons.view_menu"),
+                          "#",
+                          data: { modal_target: "updateTeensModal", modal_toggle: "updateTeensModal" },
+                          role: "button",
+                          class: "text-blue-600 underline" %>
+            </p>
+          </span>
+        </div>
+
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- TEENS MENUS MODAL -->
+<div
+  id="updateTeensModal"
+  tabindex="-1"
+  aria-hidden="true"
+  class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full bg-dark_gray/70 md:inset-0 h-modal md:h-full"
+>
+  <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+    <div class="relative p-4 bg-white rounded-lg shadow sm:p-5">
+
+      <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5">
+        <h3 class="text-lg font-semibold text-gray-900">
+          <%= t("nav.edit_property") %>
+        </h3>
+
+        <button
+          type="button"
+          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+          data-modal-toggle="updateTeensModal"
+        >
+          <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+            />
+          </svg>
+          <span class="sr-only">Close modal</span>
+        </button>
+      </div>
+
+      <div class="space-y-4 gap-4">
+        <%= turbo_frame_tag "teens_form" do %>
+          <%= form_with model: @teens,
+                        url: teens_path,
+                        method: :patch,
+                        data: { turbo_frame: "_top" },
+                        html: { multipart: true } do |form| %>
+
+            <p class="mb-2 text-sm font-medium text-gray-900">
+              <%= t("nav.teens_text", default: "Teens menu files") %>
+            </p>
+
+            <!-- EN -->
+            <div class="mb-4">
+              <label class="block mb-2 text-sm font-medium text-gray-900 flex">
+                Menu: <span class="pl-2 text-minor">(English)</span>
+              </label>
+
+          
+              <button
+                type="button"
+                class="show-stock-gallery block text-sm rounded-lg cursor-pointer bg-gray-800 hover:bg-gray-600 focus:outline-none text-white font-semibold px-4 py-2"
+                data-field="menu_file"
+                data-folder="hourglass_app_20/GFALC/teensclub/"
+              >
+                <%= t("buttons.select") %>
+              </button>
+
+              <!-- CLAVE: IDs iguales (tu JS los busca por field) -->
+              <div id="selected-menu_file-filename" class="mt-2 text-xs text-gray-700"></div>
+
+              <%= form.hidden_field :stock_image_keys_menu_file,
+                                    id: "stock-image-keys-menu_file" %>
+
+              <div id="stock-gallery-menu_file" class="hidden pt-4"></div>
+
+              <% if @teens.menu_file.attached? %>
+                <div class="mt-2 text-xs text-gray-700">
+                  <span class="font-semibold block mb-1">Seleccionado:</span>
+
+                  <div class="mt-2 flex flex-wrap gap-2">
+                    <% @teens.menu_file.each do |att| %>
+                      <div class="inline-flex items-center gap-2 px-2 py-1 bg-gray-100 rounded">
+                        <%= link_to att.filename,
+                                    url_for(att),
+                                    target: "_blank",
+                                    class: "text-blue-600 underline" %>
+
+                        <%= link_to purge_menu_file_teens_path(attachment_id: att.id),
+                                    data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este archivo?" },
+                                    class: "text-red-600 hover:text-red-700 inline-flex items-center justify-center" do %>
+                          <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm5.757-1a1 1 0 1 0 0 2h8.486a1 1 0 1 0 0-2H7.757Z"
+                            />
+                          </svg>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+
+            <!-- ES -->
+            <div class="mb-4">
+              <label class="block mb-2 text-sm font-medium text-gray-900 flex">
+                Menu: <span class="pl-2 text-minor">(Español)</span>
+              </label>
+
+              <button
+                type="button"
+                class="show-stock-gallery block text-sm rounded-lg cursor-pointer bg-gray-800 hover:bg-gray-600 focus:outline-none text-white font-semibold px-4 py-2"
+                data-field="menu_file_es"
+                data-folder="hourglass_app_20/GFALC/teensclub/"
+              >
+                <%= t("buttons.select") %>
+              </button>
+
+              <div id="selected-menu_file_es-filename" class="mt-2 text-xs text-gray-700"></div>
+
+              <%= form.hidden_field :stock_image_keys_menu_file_es,
+                                    id: "stock-image-keys-menu_file_es" %>
+
+              <div id="stock-gallery-menu_file_es" class="hidden pt-4"></div>
+
+              <% if @teens.menu_file_es.attached? %>
+                <div class="mt-2 text-xs text-gray-700">
+                  <span class="font-semibold block mb-1">Seleccionado:</span>
+
+                  <div class="mt-2 flex flex-wrap gap-2">
+                    <% @teens.menu_file_es.each do |att| %>
+                      <div class="inline-flex items-center gap-2 px-2 py-1 bg-gray-100 rounded">
+                        <%= link_to att.filename,
+                                    url_for(att),
+                                    target: "_blank",
+                                    class: "text-blue-600 underline" %>
+
+                        <%= link_to purge_menu_file_es_teens_path(attachment_id: att.id),
+                                    data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este archivo?" },
+                                    class: "text-red-600 hover:text-red-700 inline-flex items-center justify-center" do %>
+                          <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm5.757-1a1 1 0 1 0 0 2h8.486a1 1 0 1 0 0-2H7.757Z"
+                            />
+                          </svg>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+
+            <%= form.submit t("buttons.save"),
+                            class: "px-4 py-2 bg-minor text-white rounded hover:bg-main cursor-pointer" %>
+          <% end %>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

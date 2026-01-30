@@ -1,4 +1,3 @@
-# app/models/spa.rb
 class Spa < ApplicationRecord
   has_many_attached :menu_file
   has_many_attached :menu_file_es
@@ -15,7 +14,6 @@ after_update_commit -> {
   validates :spa_name, presence: true
   validate :menu_file_types
 
-  # return the has_many_attached association (so attached? works)
   def menu_files_for(locale = I18n.locale)
     locale.to_sym == :es ? menu_file_es : menu_file
   end
