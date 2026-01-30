@@ -19,6 +19,6 @@ Rails.application.configure do
     p.connect_src :self, :https, :wss
 
     allowed = (ENV["ALLOWED_EMBED_ORIGINS"] || "").split
-    p.frame_ancestors :self, *allowed
+    p.frame_ancestors :self, :https, *allowed
   end
 end
