@@ -11,11 +11,16 @@ class ApplicationController < ActionController::Base
   end
 
   before_action :set_locale
-  allow_browser versions: :modern
+  allow_browser versions: :modern, unless: -> { signage_request? }
   before_action :load_module_title
   before_action :load_setting
 
   private
+
+  def signage_request?
+    # Ajusta esto a tus rutas de display (ej: "/" si tu display es root)
+    controller_name == "display"
+  end
 
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale
