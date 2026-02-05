@@ -1,18 +1,19 @@
-<div data-controller="clock" class="flex flex-col justify-center">
- 
+<div data-controller="clock" class="flex flex-col justify-center leading-tight">
   <span data-clock-target="date" class="text-center md:text-lg text-sm font-bold text-white">
     <%= I18n.l(Date.today, format: :long) %>
   </span>
 
-<span data-clock-target="time" class="text-center text-lg font-bold text-white">
-  <%= I18n.l(Time.current, format: :time) %>
-</span>
+  <span data-clock-target="time" class="text-center md:text-xl text-lg font-bold text-white">
+    <%= I18n.l(Time.current, format: :time) %>
+  </span>
 
-  <div class="flex items-center justify-center gap-2 text-white">
-    <% @forecast_entries.each do |f| %>
-      <span class="capitalize text-sm"><%= f[:description] %>, </span><span class="capitalize text-sm text-white"><% temp_f = f[:temp].round %>
-<% temp_c = ((f[:temp] - 32) * 5.0/9).round %>
-<span><%= "#{temp_f} °F / #{temp_c} °C" %></span></span> 
-    <% end %> 
-  </div>
+  <% if (f = @forecast_entries&.first).present? %>
+    <% temp_f = f[:temp].round %>
+    <% temp_c = ((f[:temp] - 32) * 5.0/9).round %>
+
+    <div class="flex items-center justify-center gap-2 text-white">
+      <span class="capitalize text-sm"><%= f[:description] %></span>
+      <span class="text-sm"><%= "#{temp_f}°F / #{temp_c}°C" %></span>
+    </div>
+  <% end %>
 </div>

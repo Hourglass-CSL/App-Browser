@@ -70,7 +70,7 @@
           </div>
           <!-- Dinner Subscription -->
           <%= turbo_stream_from "dinner_restaurants" %>
-          <div id="dinner_restaurants" data-controller="rotator" data-rotator-size-value="6" class="grid md:grid-cols-2 overflow-auto gap-x-4 no-scrollbar">
+          <div id="dinner_restaurants" data-controller="rotator" data-rotator-size-value="6" class="grid md:grid-cols-2 gap-x-2 overflow-auto no-scrollbar">
             <%= render partial: "restaurants/restaurant_card", collection: @dinner_restaurants, as: :restaurant %>
           </div>
         </section>
