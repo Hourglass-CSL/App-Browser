@@ -79,7 +79,7 @@ en:
       qr: "QR Code"
       qr_text: "Add a QR Code to display in mobile devices"
       qr_user_title: "Take The Hotel In Your Pocket"
-      qr_user_text: "Just scan the QR Code and explore everything"
+      qr_user_text: "Scan the QR Code and explore everything"
       logo: "Hotel Logo"
       logo_text: "Add the hotel logo"
       map: "Hotel Map"

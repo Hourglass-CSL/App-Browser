@@ -50,7 +50,7 @@ es:
       qr: "Código QR"
       qr_text: "Agrega un código QR para visualizar en dispositivos móviles"
       qr_user_title: "Lleva El Hotel En Tu Bolsillo"
-      qr_user_text: "Solo escanea el código QR y explora todo"
+      qr_user_text: "Escanea el código QR y explora todo"
       logo: "Logo del Hotel"
       logo_text: "Agrega el logo de la propiedad"
       map: "Mapa del Hotel"
