@@ -5,7 +5,7 @@
     class="relative h-full w-full aspect-[9/16] rounded overflow-hidden shadow-lg cursor-pointer bg-black/20"
   >
     <% if staff.profile_picture.attached? %>
-     <%= image_tag staff.profile_picture, size: "400x600", class: "absolute inset-0 h-full w-full object-cover" %>
+     <%= image_tag staff.profile_picture,   class: "absolute inset-0 h-full w-full object-cover" %>
       
       <!-- Overlay -->
       <div class="absolute inset-0 bg-black/30"></div>
@@ -64,7 +64,7 @@
           <!-- Foto (modal) -->
           <% if staff.profile_picture.attached? %>
             <div class="w-full overflow-hidden rounded-lg">
-            <%= image_tag staff.profile_picture, size: "600x900" %>
+            <%= image_tag staff.profile_picture, class: "w-full max-h-[50svh] md:max-h-[70vh] object-contain mx-auto"%>
             </div>
           <% end %>
 

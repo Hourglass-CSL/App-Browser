@@ -1,12 +1,9 @@
-<div data-controller="popup" id="<%= dom_id(activity) %>" class="flex-none md:h-full w-80" tabindex="0">
+<div data-controller="popup" id="<%= dom_id(activity) %>" class="flex-none md:h-full md:w-auto h-100 w-60" tabindex="0">
   <!-- Tarjeta -->
-  <div
-    data-action="click->popup#open"
-    class="relative h-full w-full aspect-[9/16] rounded overflow-hidden shadow-lg cursor-pointer bg-black/20"
-  >
+  <div data-action="click->popup#open" class="relative h-full w-full rounded overflow-hidden shadow-lg cursor-pointer bg-black/20">
     <% if activity.cover_image.attached? %>
 
-    <%= image_tag activity.cover_image, size: "600x900", class: "absolute inset-0 h-full w-full object-cover" %>
+    <%= image_tag activity.cover_image, class: "absolute inset-0 h-full w-full object-cover" %>
        
       <!-- Overlay -->
       <div class="absolute inset-0 bg-black/30"></div>
@@ -14,14 +11,15 @@
 
     <div class="relative z-10 flex flex-col justify-between h-full p-4">
       <div id="title" class="bg-card_banner/70 rounded-lg p-2">
-        <h3 class="w-full max-w-full text-card_title font-bold text-xl text-center uppercase overflow-hidden truncate text-ellipsis whitespace-nowrap">
+        <h3 class="w-full max-w-full text-card_title font-bold text-lg text-center uppercase overflow-hidden truncate text-ellipsis whitespace-nowrap">
           <%= truncate(activity.send(I18n.locale == :es ? :nombre : :title), length: 32, separator: ' ') %>
         </h3>
       </div>
 
       <div id="content" class="bg-card_banner/70 rounded-lg p-2">
-        <p class="text-card_text font-bold text-center text-lg">
-          <%= activity.open_time.strftime("%I:%M %p") %> &ndash;
+        <p class="text-card_text font-bold text-center ">
+          <%= activity.open_time.strftime("%I:%M %p") %>    
+          <span class="opacity-70 text-white">-</span>
           <%= activity.closed_time.strftime("%I:%M %p") %>
         </p>
 
@@ -29,12 +27,14 @@
           <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
             <path fill-rule="evenodd" d="M11.906 1.994a8.002 8.002 0 0 1 8.09 8.421 7.996 7.996 0 0 1-1.297 3.957.996.996 0 0 1-.133.204l-.108.129c-.178.243-.37.477-.573.699l-5.112 6.224a1 1 0 0 1-1.545 0L5.982 15.26l-.002-.002a18.146 18.146 0 0 1-.309-.38l-.133-.163a.999.999 0 0 1-.13-.202 7.995 7.995 0 0 1 6.498-12.518ZM15 9.997a3 3 0 1 1-5.999 0 3 3 0 0 1 5.999 0Z" clip-rule="evenodd"/>
           </svg>
-          <p class="text-card_text text-center text-lg mt-1 capitalize overflow-hidden truncate text-ellipsis whitespace-nowrap">
+          <p class="text-card_text text-center   mt-1 capitalize overflow-hidden truncate text-ellipsis whitespace-nowrap">
             <%= activity.send(I18n.locale == :es ? :ubicacion : :location) %>
           </p>
         </span>
       </div>
     </div>
+
+    
   </div>
 
   <!-- Modal -->
@@ -68,7 +68,7 @@
           <!-- Cover Imagen (modal) -->
           <% if activity.cover_image.attached? %>
             <div class="w-full overflow-hidden rounded-lg">
-            <%= image_tag activity.cover_image, size: "600x900" %>
+            <%= image_tag activity.cover_image, class: "w-full max-h-[50svh] md:max-h-[70vh] object-contain mx-auto" %>
             </div>
           <% end %>
 

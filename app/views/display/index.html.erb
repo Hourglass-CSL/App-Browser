@@ -21,7 +21,7 @@
       <!-- STAFF SECTION -->
       <div class="flex flex-col md:min-h-0 min-h-[450px] order-last md:order-none">
         <div class="bg-minor rounded-lg p-2">
-          <h2 class="text-card_title font-bold text-center text-xl uppercase"><%= t('modules.staff') %></h2>
+          <h2 class="text-card_title font-bold text-center text-lg uppercase"><%= t('modules.staff') %></h2>
         </div>
         <div id="staff-wrapper" data-controller="carousel reconnect" data-carousel-delay-value="5000" data-carousel-target-selector-value="#staff_members > .flex-none" class="h-full p-2 overflow-x-auto no-scrollbar rounded-lg">
           <turbo-frame id="staff_list">
@@ -41,7 +41,7 @@
           <!-- Breakfast Section -->
           <section id="breakfast_container" class="flex flex-col overflow-hidden">
             <div class="bg-minor rounded-lg p-2">
-              <h2 class="text-card_title font-bold text-center text-xl truncate uppercase"><%= t('modules.breakfast') %></h2>
+              <h2 class="text-card_title font-bold text-center text-lg truncate uppercase"><%= t('modules.breakfast') %></h2>
             </div>
             <!-- Breakfast Subscription -->
             <%= turbo_stream_from "breakfast_restaurants" %>
@@ -53,7 +53,7 @@
           <!-- Lunch Section -->
           <section id="lunch_container" class="flex flex-col overflow-hidden">
             <div class="bg-minor rounded-lg p-2">
-              <h2 class="text-card_title font-bold text-center text-xl uppercase"><%= t('modules.lunch') %></h2>
+              <h2 class="text-card_title font-bold text-center text-lg uppercase"><%= t('modules.lunch') %></h2>
             </div>
             <!-- Lunch Subscription -->
             <%= turbo_stream_from "lunch_restaurants" %>
@@ -66,7 +66,7 @@
         <!-- DINNER SECTION -->
         <section id="dinner_container" class="flex flex-col md:h-1/2 overflow-hidden min-h-0">
           <div class="bg-minor rounded-lg p-2">
-            <h2 class="text-card_title font-bold text-center text-xl uppercase"><%= t('modules.dinner') %></h2>
+            <h2 class="text-card_title font-bold text-center text-lg uppercase"><%= t('modules.dinner') %></h2>
           </div>
           <!-- Dinner Subscription -->
           <%= turbo_stream_from "dinner_restaurants" %>
@@ -80,7 +80,7 @@
       <!-- BARS GRID-->
       <div class="flex flex-col min-h-0">
         <div class="bg-minor rounded-lg p-2">
-          <h2 class="text-card_title font-bold text-center text-xl uppercase"><%= t('modules.bars') %></h2>
+          <h2 class="text-card_title font-bold text-center text-lg uppercase"><%= t('modules.bars') %></h2>
         </div>
         <!--Bar Subscription-->
         <%= turbo_stream_from "bars" %>
@@ -96,7 +96,7 @@
       <!-- SETTINGS GRID-->
         <div class="flex flex-col h-full min-h-0 gap-1 md:overflow-hidden">         
           <div class="bg-minor rounded-lg p-2">
-            <h2 class="text-card_title font-bold text-center text-xl uppercase"><%= t('modules.info') %></h2>
+            <h2 class="text-card_title font-bold text-center text-lg uppercase"><%= t('modules.info') %></h2>
           </div>
           <!--Settings Subscription-->
           <%= turbo_stream_from "settings" %> 
@@ -115,7 +115,7 @@
           <div class="bg-minor rounded-lg p-2">
             <%= turbo_stream_from "module_title" %>
               <%= turbo_frame_tag "module_title" do %>
-                <h1 class="text-card_title font-bold text-center text-xl uppercase">
+                <h1 class="text-card_title font-bold text-center text-lg uppercase">
                  <%= @module_title.send(I18n.locale == :es ? :nombre : :title).presence || t('others') %> 
                 </h1>
               <% end %>           

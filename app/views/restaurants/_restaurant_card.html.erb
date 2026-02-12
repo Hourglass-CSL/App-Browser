@@ -36,10 +36,10 @@
         <div class="p-6 space-y-4 flex flex-col justify-center content-center mx-auto">
           <div data-popup-target="content" data-prerendered="true" class="w-auto max-h-full overflow-auto rounded-lg">
 
-            <div class="md:h-[900px] md:h-[750px] h-auto md:flex gap-3 md:space-y-0 space-y-2">
+            <div class="md:w-full md:max-h-[70vh] h-auto md:flex gap-3 md:space-y-0 space-y-2">
               <% attachments.each do |att| %>
                 <% if att.blob.content_type&.start_with?("image/") %>
-                  <%= image_tag att, loading: "lazy", class: "w-full rounded-lg shadow" %>
+                  <%= image_tag att, class: "w-full rounded-lg shadow" %>
                 <% else %>
                   <div class="p-3 bg-white/5 rounded-lg border border-white/10">
                     <%= link_to att.filename.to_s, url_for(att), target: "_blank", rel: "noopener", class: "text-blue-400 underline" %>

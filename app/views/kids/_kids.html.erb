@@ -76,8 +76,7 @@
                   <% files.each do |att| %>
                     <% if att.blob.content_type&.start_with?("image/") %>
                       <%= image_tag att,
-                                    loading: "lazy",
-                                    class: "w-full rounded-lg shadow" %>
+                                   class: "w-full max-h-[50svh] md:max-h-[70vh] object-contain mx-auto" %>
                     <% else %>
                       <div class="p-3 bg-white/5 rounded-lg border border-white/10">
                         <%= link_to att.filename.to_s,
