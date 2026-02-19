@@ -19,11 +19,11 @@
     <section id="bottom_section" class="grid grid-cols-1 md:grid-cols-6 gap-4 md:overflow-hidden p-2 bg-main">
 
       <!-- STAFF SECTION -->
-      <div class="flex flex-col md:min-h-0 min-h-[450px] order-last md:order-none">
+      <div class="flex flex-col md:min-h-0  order-last md:order-none">
         <div class="bg-minor rounded-lg p-2">
           <h2 class="text-card_title font-bold text-center text-lg uppercase"><%= t('modules.staff') %></h2>
         </div>
-        <div id="staff-wrapper" data-controller="carousel reconnect" data-carousel-delay-value="5000" data-carousel-target-selector-value="#staff_members > .flex-none" class="h-full p-2 overflow-x-auto no-scrollbar rounded-lg">
+        <div id="staff-wrapper" data-controller="carousel reconnect" data-carousel-delay-value="5000" data-carousel-target-selector-value="#staff_members > .flex-none" class="h-full py-2 overflow-x-auto no-scrollbar rounded-lg">
           <turbo-frame id="staff_list">
           <!-- Staff Subscription -->
             <%= turbo_stream_from "staff_list" %>
@@ -120,7 +120,7 @@
                 </h1>
               <% end %>           
           </div> 
-          <div id="specials-wrapper" data-controller="carousel reconnect" data-carousel-delay-value="6000" data-carousel-target-selector-value="#specials > .flex-none" class="h-full overflow-x-auto no-scrollbar pt-4">
+          <div id="specials-wrapper" data-controller="carousel reconnect" data-carousel-delay-value="6000" data-carousel-target-selector-value="#specials > .flex-none" class="h-full overflow-x-auto no-scrollbar py-2">
             <turbo-frame id="specials_list">
               <%= turbo_stream_from "specials_list" %>
                 <div id="specials" class="flex flex-nowrap h-full">

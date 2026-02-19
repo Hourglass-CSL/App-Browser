@@ -76,4 +76,9 @@ export default class extends Controller {
     this.wrapper.addEventListener("mouseover", () => this.stop())
     this.wrapper.addEventListener("mouseout",  () => this.start())
   }
+
+
+  
 }
+
+
