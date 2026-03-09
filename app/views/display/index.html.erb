@@ -45,7 +45,7 @@
             </div>
             <!-- Breakfast Subscription -->
             <%= turbo_stream_from "breakfast_restaurants" %>
-            <div id="breakfast_restaurants" data-controller="rotator" data-rotator-size-value="3" class="overflow-auto no-scrollbar content-center">                                                                     
+            <div id="breakfast_restaurants" data-controller="rotator" data-rotator-size-value="4" class="overflow-auto no-scrollbar content-center">                                                                     
               <%= render partial: "restaurants/restaurant_card", collection: @breakfast_restaurants, as: :restaurant %>
             </div>
           </section>
@@ -57,7 +57,7 @@
             </div>
             <!-- Lunch Subscription -->
             <%= turbo_stream_from "lunch_restaurants" %>
-            <div id="lunch_restaurants" data-controller="rotator" data-rotator-size-value="3" class=" overflow-auto no-scrollbar">
+            <div id="lunch_restaurants" data-controller="rotator" data-rotator-size-value="4" class=" overflow-auto no-scrollbar">
               <%= render partial: "restaurants/restaurant_card", collection: @lunch_restaurants, as: :restaurant %>
             </div>
           </section>
@@ -70,7 +70,7 @@
           </div>
           <!-- Dinner Subscription -->
           <%= turbo_stream_from "dinner_restaurants" %>
-          <div id="dinner_restaurants" data-controller="rotator" data-rotator-size-value="6" class="grid md:grid-cols-2 gap-x-2 overflow-auto no-scrollbar">
+          <div id="dinner_restaurants" data-controller="rotator" data-rotator-size-value="8" class="grid md:grid-cols-2 gap-x-2 overflow-auto no-scrollbar">
             <%= render partial: "restaurants/restaurant_card", collection: @dinner_restaurants, as: :restaurant %>
           </div>
         </section>
@@ -85,7 +85,7 @@
         <!--Bar Subscription-->
         <%= turbo_stream_from "bars" %>
 
-        <div id="bars" data-controller="rotator" data-rotator-size-value="6" class="flex flex-col overflow-auto no-scrollbar">
+        <div id="bars" data-controller="rotator" data-rotator-size-value="8" class="flex flex-col overflow-auto no-scrollbar">
           <% @bars.each do |bar| %>
               <%= render "bars/bar_card", bar: bar %>
            <% end %>
