@@ -54,11 +54,11 @@
 
             <% if files.present? %>
               <div class="w-auto max-h-screen overflow-auto rounded-lg">
-                <div class="md:h-[750px] max-h-[70dvh] h-auto md:flex gap-3 md:space-y-0 space-y-2">
+                <div class=" md:h-[1200px] h-auto md:flex gap-3 md:space-y-0 space-y-2">
                   <% files.each do |att| %>
                     <% if att.blob.content_type&.start_with?("image/") %>
                       <%= image_tag att,
-                            class: "w-full max-h-[50svh] md:max-h-[70vh] object-contain mx-auto" %>
+                            class: "w-full max-h-[50svh] md:max-h-[90vh] object-contain mx-auto" %>
                     <% else %>
                       <div class="p-3 bg-white/5 rounded-lg border border-white/10">
                         <%= link_to att.filename.to_s,

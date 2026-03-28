@@ -47,7 +47,7 @@
     <!-- Overlay -->
     <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 overflow-y-auto">
       <!-- Modal Body -->
-      <div data-action="click->popup#preventClose" class="relative max-w-xl bg-dark_gray/80 rounded-lg shadow overflow-hidden max-h-[90svh] md:max-h-[90vh] flex flex-col">
+      <div data-action="click->popup#preventClose" class="relative max-w-xl bg-dark_gray/80 rounded-lg shadow overflow-hidden max-h-[90svh] md:max-h-[100vh] flex flex-col">
         <!-- Header -->
         <div class="flex justify-between items-center p-4 sm:p-5 bg-minor/70 flex-none">
           <h3 class="text-lg sm:text-2xl font-bold text-card_title uppercase">
@@ -66,7 +66,7 @@
           <!-- Cover Imagen (modal) -->
           <% if special.cover_image.attached? %>
             <div class="w-full overflow-hidden rounded-lg">
-              <%= image_tag special.cover_image, class: "w-full max-h-[50svh] md:max-h-[70vh] object-contain mx-auto" %>
+             <%= image_tag special.cover_image, class: "w-full max-h-[50svh] md:max-h-[90vh] object-contain mx-auto" %>
             </div>
           <% end %>
 
