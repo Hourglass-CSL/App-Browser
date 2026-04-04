@@ -25,5 +25,5 @@ function isMobile() {
         let pathRest = window.location.pathname.replace(/^\/(en|es)/, '');
         window.location.href = `/${nextLocale}${pathRest}${window.location.search}`;
       }, 800); // muestra el overlay 0.8s antes de recargar
-    }, 600000;
+    }, 540000);
   }
