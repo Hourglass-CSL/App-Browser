@@ -202,7 +202,8 @@ es:
       mexican: "Mexicana"
       sushi: "Bar de Sushi"
       seafood: "Mariscos"
-      steak: "Steakhouse & Grill"
+      steak: "Steakhouse"
+      grill: "Grill"
       thai: "Tailandesa"
       tapas: "Tapas"
     dress_code:
